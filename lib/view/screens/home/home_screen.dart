@@ -2,6 +2,7 @@ import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/util/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -99,10 +100,27 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Text("datadata",style: robotoMedium.copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: Dimensions.fontSizeSmall,
-                              )),
+                              Flexible(
+                                child: Column(
+                                  children: [
+                                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                     children: [
+                                       Text("datadata",
+                                           style: robotoMedium.copyWith(
+                                             color: Theme.of(context).primaryColor,
+                                             fontSize: Dimensions.fontSizeExtraLarge,
+                                           )),
+                                       Switch(
+                                         value: true,
+                                         onChanged: (v) {},
+                                         activeColor: Colors.green,
+                                         inactiveThumbColor: Colors.red,
+                                       )
+                                     ],
+                                   )
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         )),
