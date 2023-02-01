@@ -3,6 +3,7 @@ import 'package:bio_trap/helper/dio_integration.dart';
 import 'package:bio_trap/model/body/user_model.dart';
 import 'package:bio_trap/routes/app_route.dart';
 import 'package:bio_trap/util/app_constants.dart';
+import 'package:bio_trap/view/base/custom_snackbar.dart';
 import 'package:get/get.dart';
 
 class AuthServices {
@@ -13,6 +14,7 @@ class AuthServices {
       final response = await dio!.post(AppConstants.login,
           data: {"Email": email, "Password": password});
       print(response.statusCode);
+      print(response.data);
       if (response.statusCode == 200) {
         UserModel userModel = UserModel.fromJson(response.data);
         CacheHelper.saveData(
@@ -22,6 +24,8 @@ class AuthServices {
         print(response.data);
         Get.offAllNamed(AppRoute.homeScreen);
         DioUtilNew.setDioAgain();
+      }else if(response.statusCode==400){
+        showCustomSnackBar(message: "Error in Email Or Password",isError: true);
       }
     } catch (e) {}
   }

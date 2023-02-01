@@ -1,3 +1,4 @@
+import 'package:bio_trap/enum/view_state.dart';
 import 'package:bio_trap/model/body/trap_model.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
@@ -38,48 +39,57 @@ class YourTrapScreen extends StatelessWidget {
                   width: Dimensions.width * 0.3,
                   color: Theme.of(context).cardColor),
             )),
-        body: ListView.builder(
-            itemCount: traps!.length,
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (_, index) => Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Material(
-                    elevation: 2,
-                    shadowColor: Theme.of(context).primaryColor,
-                    child: ListTile(
-                      onTap: () async {
-                        await controller.getTrap(trapId: traps![index].id);
-                        Get.to(() => TrapDetailsScreen(
-                              trap: controller.trap,
-                            ));
-                      },
-                      leading: Image.asset(Images.trapIcon),
-                      title: Text(traps![index].name!,
-                          style: robotoMedium.copyWith(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: Dimensions.fontSizeLarge)),
-                      trailing: Icon(Icons.arrow_forward_ios,
-                          color: Theme.of(context).primaryColor),
+        body: Obx(() => controller.state == ViewState.busy
+                ? Center(
+                    child: Image.asset(
+                      Images.logoAnimation,
+                      color: Theme.of(context).primaryColor,
+                      width: Dimensions.width * 0.5,
                     ),
-                  ),
-                ))
-        // GridView.builder(
-        //     itemCount: 10,
-        //     physics: const BouncingScrollPhysics(),
-        //     shrinkWrap: true,
-        //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //         crossAxisCount: 2,
-        //         childAspectRatio: 3 / 3,
-        //         crossAxisSpacing: 5,
-        //         mainAxisSpacing: 5),
-        //     itemBuilder: (_, index) => TrapCard(
-        //           onTap: () {
-        //             Get.to(()=>const TrapDetailsScreen());
-        //           },
-        //           name: "Trap Name",
-        //         )),
-        );
+                  )
+                : ListView.builder(
+                    itemCount: traps!.length,
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (_, index) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Material(
+                            elevation: 2,
+                            shadowColor: Theme.of(context).primaryColor,
+                            child: ListTile(
+                              onTap: () async {
+                                await controller.getTrap(
+                                    trapId: traps![index].id);
+                                Get.to(() => TrapDetailsScreen(
+                                      trap: controller.trap,
+                                    ));
+                              },
+                              leading: Image.asset(Images.trapIcon),
+                              title: Text(traps![index].name!,
+                                  style: robotoMedium.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: Dimensions.fontSizeLarge)),
+                              trailing: Icon(Icons.arrow_forward_ios,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                          ),
+                        ))
+            // GridView.builder(
+            //     itemCount: 10,
+            //     physics: const BouncingScrollPhysics(),
+            //     shrinkWrap: true,
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //         crossAxisCount: 2,
+            //         childAspectRatio: 3 / 3,
+            //         crossAxisSpacing: 5,
+            //         mainAxisSpacing: 5),
+            //     itemBuilder: (_, index) => TrapCard(
+            //           onTap: () {
+            //             Get.to(()=>const TrapDetailsScreen());
+            //           },
+            //           name: "Trap Name",
+            //         )),
+            ));
   }
 }
