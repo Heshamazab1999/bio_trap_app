@@ -56,6 +56,7 @@ dependencies:
   multi_select_flutter:
   syncfusion_flutter_charts: ^20.4.44
   flutter_local_notifications:
+  flutter_ringtone_player: ^3.2.0
 
 
 

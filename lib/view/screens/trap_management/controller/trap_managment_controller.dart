@@ -29,25 +29,23 @@ class TrapManagementController extends BaseController {
       loading.value = false;
     } catch (e) {}
   }
-  Future<void> sendNotification({String? token, String? message}) async {
+  Future<void> sendNotification() async {
     const postUrl = 'https://fcm.googleapis.com/fcm/send';
     Dio dio = Dio();
 
-    // var token = await getDeviceToken();
+     var token = await getDeviceToken();
     print('device token : $token');
 
     final data = {
       "data": {
-        "message": message,
+        "message": "message",
         "title": "Donation App",
       },
       "to": token
     };
-// q
-// git remote set-url origin https://github.com/zeinabtareek/donation_dashboard/
     dio.options.headers['Content-Type'] = 'application/json';
     dio.options.headers["Authorization"] =
-    'key=AAAAK77pS_M:APA91bEdjYfKufLMBKYt5tTPFD_fy06yG1ubQLPvYjEH8adE6wqMFFTGP1R4a_ZQmL4fH1xB1YT0ax5MvruunGMZZ0cm9Jv2o4ri6KGWlTySw9WD0I_RhrNhO28tG8zIIrJanxPds_Xj';
+    'key=AAAABRZSkKs:APA91bGzkWQfIcmbepO0X3rhkJKbkQzOUiYW3AJziyZ3GSqgAmlT46sdBZxLXwDqdiGjTs_uhVHAGOZ-6WWS-uZNamFh9dvokQwwgzuTQ4ppwm2vSt3e5IKVOzaGwMvijf2wA_64UxuR';
 
     try {
       final response = await dio.post(postUrl, data: data);

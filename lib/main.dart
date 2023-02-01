@@ -12,16 +12,22 @@ import 'package:bio_trap/util/messages.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:get/get.dart';
 import 'helper/get_di.dart' as di;
 NotificationService notificationService = NotificationService();
-
 Future<void> messageHandler(RemoteMessage message) async {
   NotificationModel notificationMessage =
   NotificationModel.fromJson(message.data);
   notificationService.showNotification(
       1, notificationMessage.title!, notificationMessage.message!, "1");
   print('notification from background : ${notificationMessage.title}');
+  // FlutterRingtonePlayer.play(
+  //   android: AndroidSounds.notification,
+  //   ios: const IosSound(1023),
+  //   looping: true,
+  //   volume: 0.5,
+  // );
 }
 
 Future<void> firebaseMessagingListener() async {
@@ -31,6 +37,12 @@ Future<void> firebaseMessagingListener() async {
     notificationService.showNotification(
         1, notificationMessage.title!, notificationMessage.message!, "1");
   });
+  // FlutterRingtonePlayer.play(
+  //   android: AndroidSounds.notification,
+  //   ios: const IosSound(1023),
+  //   looping: true,
+  //   volume: 10,
+  // );
 }
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +51,6 @@ Future<void> main() async {
   firebaseMessagingListener();
   FirebaseMessaging.onBackgroundMessage(messageHandler);
   Map<String, Map<String, String>> languages = await di.init();
-
   runApp(MyApp(
     languages: languages,
   ));

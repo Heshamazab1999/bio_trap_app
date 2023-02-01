@@ -4,7 +4,9 @@ import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/util/styles.dart';
 import 'package:bio_trap/util/utility.dart';
 import 'package:bio_trap/view/base/custom_button.dart';
+import 'package:bio_trap/view/screens/trap_details/controller/trap_details_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -15,6 +17,7 @@ class TrapDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(TrapDetailsController());
     print(trap!.isCounterOn);
     return Scaffold(
       backgroundColor: const Color(0xFFF9FEFE),
@@ -92,7 +95,10 @@ class TrapDetailsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        trap!.readingDate.toString().split("/").first,
+                        trap!.readingDate == null
+                            ? "00-00-00"
+                            : trap!.readingDate!.split("/").first,
+                        // trap!.readingDate!.split("/").first??"00-00-00",
                         style: robotoMedium.copyWith(
                             fontSize: Dimensions.fontSizeLarge),
                       ),
@@ -121,7 +127,9 @@ class TrapDetailsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        trap!.readingDate.toString().split("/").last,
+                        trap!.readingDate == null
+                            ? "00-00-00"
+                            : trap!.readingDate!.split("/").last,
                         style: robotoMedium.copyWith(
                             fontSize: Dimensions.fontSizeLarge),
                       ),
@@ -380,56 +388,35 @@ class TrapDetailsScreen extends StatelessWidget {
             Container(
                 child: SfCartesianChart(
                     // Initialize category axis
-                    primaryXAxis: CategoryAxis(),
-                    series: <LineSeries<SalesData, String>>[
-                  LineSeries<SalesData, String>(
+                    primaryXAxis: CategoryAxis(
+                      isVisible: true,
+                      arrangeByIndex: true,
+                    ),
+                    series: <LineSeries<TrapSchedules, dynamic>>[
+                  LineSeries<TrapSchedules, dynamic>(
                       // Bind data source
-                      dataSource: <SalesData>[
-                        SalesData('Jan', 35),
-                        SalesData('Feb', 28),
-                        SalesData('Mar', 34),
-                        SalesData('Apr', 32),
-                        SalesData('May', 40)
-                      ],
+                      dataSource: trap!.trapValveQutSchedules!,
+                      isVisible: true,
+                      animationDuration: 1.0,
                       color: Colors.green,
-                      xValueMapper: (SalesData sales, _) => sales.year,
-                      yValueMapper: (SalesData sales, _) => sales.sales),
-                  LineSeries<SalesData, String>(
+                      xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
+                      yValueMapper: (TrapSchedules sales, _) => sales.id),
+                  LineSeries<TrapSchedules, dynamic>(
                       // Bind data source
-                      dataSource: <SalesData>[
-                        SalesData('Jan', 13),
-                        SalesData('Feb', 19),
-                        SalesData('Mar', 27),
-                        SalesData('Apr', 34),
-                        SalesData('May', 9)
-                      ],
+                      dataSource: trap!.trapCounterSchedules!,
+                      isVisible: true,
+                      animationDuration: 1.0,
                       color: Colors.amber,
-                      xValueMapper: (SalesData sales, _) => sales.year,
-                      yValueMapper: (SalesData sales, _) => sales.sales),
-                  LineSeries<SalesData, String>(
+                      xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
+                      yValueMapper: (TrapSchedules sales, _) => sales.id),
+                  LineSeries<TrapSchedules, dynamic>(
                       // Bind data source
-                      dataSource: <SalesData>[
-                        SalesData('Jan', 30),
-                        SalesData('Feb', 28),
-                        SalesData('Mar', 50),
-                        SalesData('Apr', 40),
-                        SalesData('May', 20)
-                      ],
+                      dataSource: trap!.trapFanSchedules!,
+                      isVisible: true,
+                      animationDuration: 1.0,
                       color: Colors.red,
-                      xValueMapper: (SalesData sales, _) => sales.year,
-                      yValueMapper: (SalesData sales, _) => sales.sales),
-                  LineSeries<SalesData, String>(
-                      // Bind data source
-                      dataSource: <SalesData>[
-                        SalesData('Jan', 10),
-                        SalesData('Feb', 16),
-                        SalesData('Mar', 33),
-                        SalesData('Apr', 25),
-                        SalesData('May', 10)
-                      ],
-                      color: Colors.blue,
-                      xValueMapper: (SalesData sales, _) => sales.year,
-                      yValueMapper: (SalesData sales, _) => sales.sales),
+                      xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
+                      yValueMapper: (TrapSchedules sales, _) => sales.id),
                 ])),
             SizedBox(height: Dimensions.height * 0.02),
           ],

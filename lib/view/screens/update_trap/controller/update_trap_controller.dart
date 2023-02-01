@@ -1,6 +1,7 @@
 import 'package:bio_trap/controller/base_controller.dart';
 import 'package:bio_trap/model/body/time_model.dart';
 import 'package:bio_trap/model/body/update_trap.dart';
+import 'package:bio_trap/view/base/custom_snackbar.dart';
 import 'package:bio_trap/view/screens/update_trap/services/update_services.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -168,38 +169,44 @@ class UpdateTrapController extends BaseController {
 
   Future<DateTime?> showCalender({required BuildContext context}) async =>
       await showDatePicker(
-
         context: context,
         lastDate: DateTime(2100),
         firstDate: DateTime(2000),
         initialDate: dateTime.value,
-
       );
 
   updateTrap(BuildContext context, {int? trapId}) async {
     try {
-      send.value = true;
-      await services.updateTrap(context,
-          id: trapId,
-          model: UpdateTrapModel(
-
-            name: textEditingControllerName.text,
-            serialNumber: textEditingControllerSerial.text,
-            iema: int.tryParse(textEditingControllerLema.text),
-            lat: textEditingControllerLat.text,
-            long: textEditingControllerLon.text,
-            // isWorking: switchValue.value,
-            isCounterOn: switchScheduleValue.value,
-            isCounterReadingFromSimCard: switchSimCard.value,
-            readingDate: readingDate.value,
-            trapFanSchedules: slideRangeScheduleFan,
-            trapCounterSchedules: slideRangeScheduleCounter,
-            trapValveQntSchedules: slideRangeScheduleValueQut,
-            fan: fanValue.value.toString(),
-            valveQut: qutValue.value.toString(),
-            status: 0,
-          ));
-      send.value = false;
+      if (textEditingControllerLat.text.isEmpty &&
+          textEditingControllerLon.text.isEmpty) {
+        showCustomSnackBar(message: "Enter Your Location", isError: true);
+      } else if (textEditingControllerSerial.text.isEmpty &&
+          textEditingControllerLema.text.isEmpty &&
+          textEditingControllerName.text.isEmpty) {
+        showCustomSnackBar(message: "Enter your Trap Details", isError: true);
+      } else {
+        send.value = true;
+        await services.updateTrap(context,
+            id: trapId,
+            model: UpdateTrapModel(
+              name: textEditingControllerName.text,
+              serialNumber: textEditingControllerSerial.text,
+              iema: int.tryParse(textEditingControllerLema.text),
+              lat: textEditingControllerLat.text,
+              long: textEditingControllerLon.text,
+              // isWorking: switchValue.value,
+              isCounterOn: switchScheduleValue.value,
+              isCounterReadingFromSimCard: switchSimCard.value,
+              readingDate: readingDate.value,
+              trapFanSchedules: slideRangeScheduleFan,
+              trapCounterSchedules: slideRangeScheduleCounter,
+              trapValveQntSchedules: slideRangeScheduleValueQut,
+              fan: fanValue.value.toString(),
+              valveQut: qutValue.value.toString(),
+              status: 0,
+            ));
+        send.value = false;
+      }
     } catch (e) {
       send.value = false;
     }
