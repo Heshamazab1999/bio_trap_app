@@ -55,6 +55,7 @@ dependencies:
   rflutter_alert:
   multi_select_flutter:
   syncfusion_flutter_charts: ^20.4.44
+  flutter_local_notifications:
 
 
 

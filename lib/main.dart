@@ -1,3 +1,5 @@
+import 'package:bio_trap/helper/local_notification.dart';
+import 'package:bio_trap/model/body/notification_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bio_trap/controller/language_controller.dart';
 import 'package:bio_trap/controller/theme_controller.dart';
@@ -7,14 +9,35 @@ import 'package:bio_trap/theme/dark_theme.dart';
 import 'package:bio_trap/theme/light_theme.dart';
 import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/messages.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'helper/get_di.dart' as di;
+NotificationService notificationService = NotificationService();
 
+Future<void> messageHandler(RemoteMessage message) async {
+  NotificationModel notificationMessage =
+  NotificationModel.fromJson(message.data);
+  notificationService.showNotification(
+      1, notificationMessage.title!, notificationMessage.message!, "1");
+  print('notification from background : ${notificationMessage.title}');
+}
+
+Future<void> firebaseMessagingListener() async {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    NotificationModel notificationMessage =
+    NotificationModel.fromJson(message.data);
+    notificationService.showNotification(
+        1, notificationMessage.title!, notificationMessage.message!, "1");
+  });
+}
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await notificationService.init();
+  firebaseMessagingListener();
+  FirebaseMessaging.onBackgroundMessage(messageHandler);
   Map<String, Map<String, String>> languages = await di.init();
 
   runApp(MyApp(
