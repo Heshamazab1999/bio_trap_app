@@ -223,7 +223,7 @@
   "item_campaigns": "حملة البند",
   "basic_campaigns": "حملة أساسية",
   "name": "اسم",
-  "enter_your_name": "أدخل أسمك",
+  "enter_your_name": "أدخل الايميل",
   "enter_your_message": "أدخل رسالتك",
   "email_us": "ارسل لنا عبر البريد الإلكتروني",
   "since_joining": "منذ الانضمام",
@@ -426,5 +426,7 @@
   "are_you_sure_to_delete_account": "هل أنت متأكد من حذف حسابك?",
   "it_will_remove_your_all_information": "سوف يزيل كل المعلومات الخاصة بك.",
   "no_restaurant_data_found": "لم يتم العثور على بيانات مطعم",
-  "trap": "المصايد"
+  "trap": "المصايد",
+  "location_trap": "موقع المصيده",
+  "ensure_that_the_values_entered_correctly": "تاكد من ادخال القيم بشكل صحيح"
 }

@@ -1,4 +1,4 @@
-package com.example.bio_trap
+package com.example.bio_trap_app
 
 import io.flutter.embedding.android.FlutterActivity
 

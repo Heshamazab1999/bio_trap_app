@@ -223,7 +223,7 @@
   "item_campaigns": "Item Campaigns",
   "basic_campaigns": "Basic Campaigns",
   "name": "Name",
-  "enter_your_name": "Enter your name",
+  "enter_your_name": "Enter your email",
   "enter_your_message": "Enter your message",
   "email_us": "Email Us",
   "since_joining": "Since Joining",
@@ -368,11 +368,9 @@
   "delivery_fee_not_set_yet": "Delivery fee not set yet",
   "first_order": "First Order",
   "version": "Version",
-
   "v5.3": "Version 5.3",
   "no_payment_method_is_enabled": "No payment method is enabled",
   "ratings": "ratings",
-
   "v5.4": "Version 5.4",
   "wallet": "Wallet",
   "convert_to_currency": "Convert to currency",
@@ -400,7 +398,6 @@
   "wallet_payment": "Wallet Payment",
   "pay_from_your_existing_balance": "Pay from your existing balance",
   "you_do_not_have_sufficient_balance_in_wallet": "You do not have sufficient balance in wallet",
-
   "v5.6": "Version 5.6",
   "product_images": "Product Images",
   "refer_code": "Refer Code (Optional)",
@@ -425,12 +422,13 @@
   "view_more": "View More",
   "write_item_name": "Write item name",
   "referrer": "Referrer",
-
   "your_account_remove_successfully": "Your account remove successfully",
   "there_is_a_problem_on_removing_your_account": "There is a problem on removing your account",
   "delete_account": "Delete Account",
   "are_you_sure_to_delete_account": "Are you sure to delete your account?",
   "it_will_remove_your_all_information": "It will remove your all information.",
   "no_restaurant_data_found": "No restaurant data found",
-  "trap": "trap"
+  "trap": "trap",
+  "location_trap": "location trap",
+  "ensure_that_the_values_entered_correctly": "Ensure that the values entered correctly"
 }

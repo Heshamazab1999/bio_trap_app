@@ -1,3 +1,4 @@
+import 'package:bio_trap/routes/app_route.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/view/base/custom_button.dart';
@@ -27,16 +28,24 @@ class SignInScreen extends StatelessWidget {
               SizedBox(
                 height: Dimensions.height * 0.04,
               ),
-              FixedTextField(
-                prefixIcon: Icon(Icons.email,
-                    color: Theme.of(context).primaryColor.withOpacity(0.4)),
-                label: "email".tr,
-              ),
+              Obx(() => FixedTextField(
+                    errorLabel: controller.email.error,
+                    function: (email) {
+                      controller.changeUserName(email);
+                    },
+                    prefixIcon: Icon(Icons.email,
+                        color: Theme.of(context).primaryColor.withOpacity(0.4)),
+                    label: "email".tr,
+                  )),
               SizedBox(
                 height: Dimensions.height * 0.02,
               ),
               Obx(() => FixedTextField(
+                    errorLabel: controller.password.error,
                     obSecure: controller.isSecure.value,
+                    function: (password) {
+                      controller.changePassword(password);
+                    },
                     suffixIcon: IconButton(
                         onPressed: () {
                           controller.isSecure.value =
@@ -56,12 +65,20 @@ class SignInScreen extends StatelessWidget {
               SizedBox(
                 height: Dimensions.height * 0.04,
               ),
-              CustomButton(
-                onPressed: () {},
-                width: Dimensions.width * 0.8,
-                radius: Dimensions.RADIUS_DEFAULT,
-                buttonText: "sign_in".tr,
-              )
+              Obx(() => controller.loading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    )
+                  : CustomButton(
+                      onPressed: () {
+                        controller.signIn();
+                      },
+                      width: Dimensions.width * 0.8,
+                      radius: Dimensions.RADIUS_DEFAULT,
+                      buttonText: "sign_in".tr,
+                    ))
             ],
           ),
         ),

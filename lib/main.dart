@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
               AppConstants.languages[0].countryCode!),
           // initialRoute: GetPlatform.isWeb ? RouteHelper.getInitialRoute() : RouteHelper.getSplashRoute(orderID),
           getPages: AppScreen.screen,
-          initialRoute: AppRoute.homeScreen,
+          initialRoute: AppRoute.splashScreen,
           defaultTransition: Transition.topLevel,
           transitionDuration: const Duration(milliseconds: 500),
         );

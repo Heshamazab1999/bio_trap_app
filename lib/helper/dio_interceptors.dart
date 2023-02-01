@@ -4,6 +4,7 @@ class CustomInterceptors extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     print('REQUEST[${options.method}] => PATH: ${options.path}');
+
     return super.onRequest(options, handler);
   }
 

@@ -1,14 +1,16 @@
 import 'dart:async';
+import 'package:bio_trap/helper/cache_helper.dart';
+import 'package:bio_trap/helper/dio_integration.dart';
 import 'package:bio_trap/routes/app_route.dart';
+import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:bio_trap/controller/splash_controller.dart';
 import 'package:bio_trap/util/images.dart';
-import 'package:bio_trap/view/base/no_internet_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:intl/intl.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -20,8 +22,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  // final controller = Get.put(SplashController());
+
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
-  final controller = Get.put(SplashController());
   late StreamSubscription subscription;
   bool isDeviceConnected = false;
   bool isAlertSet = false;
@@ -39,10 +42,34 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    getConnectivity();
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.offAllNamed(AppRoute.signIn);
+    getConnectivity();
+    Future.delayed(const Duration(seconds: 5), () async {
+      String time = await CacheHelper.getData(key: AppConstants.expireOn)??"";
+      String token = await CacheHelper.getData(key: AppConstants.token)??"";
+      print(token);
+      print(time);
+      print("time");
+      if (time.isEmpty) {
+        Get.toNamed(AppRoute.signIn);
+      } else {
+        var output = DateFormat('MMMM d y , hh:mm a');
+        var input =
+            DateTime.parse(CacheHelper.getData(key: AppConstants.expireOn));
+        print(output.format(input));
+        final date2 = DateTime.now();
+        final difference = input.difference(date2).inHours;
+        print(difference);
+        if (difference > 0) {
+          Get.toNamed(AppRoute.homeScreen);
+          DioUtilNew.setDioAgain();
+        } else if (difference <= 0) {
+          CacheHelper.removeData(key: AppConstants.token);
+          CacheHelper.removeData(key: AppConstants.expireOn);
+          Get.toNamed(AppRoute.signIn);
+          DioUtilNew.setDioAgain();
+        }
+      }
     });
   }
 
@@ -62,16 +89,16 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                Images.logoWhite,
-                width: Dimensions.width * 0.25,
+                Images.logoAnimation,
+                width: Dimensions.width * 0.5,
               ),
-              SizedBox(
-                height: Dimensions.height * 0.02,
-              ),
-              Image.asset(Images.logoName, width: Dimensions.width * 0.5),
-              SizedBox(
-                height: Dimensions.height * 0.04,
-              ),
+              // SizedBox(
+              //   height: Dimensions.height * 0.02,
+              // ),
+              // Image.asset(Images.logoName, width: Dimensions.width * 0.5),
+              // SizedBox(
+              //   height: Dimensions.height * 0.04,
+              // ),
             ],
           ),
         ));

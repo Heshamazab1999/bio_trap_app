@@ -3,15 +3,22 @@ import 'package:bio_trap/util/images.dart';
 import '../model/response/language_model.dart';
 
 class AppConstants {
-  static const String APP_NAME = 'Doctor Green';
+  static const String APP_NAME = 'Bio Trap';
   static const double APP_VERSION = 5.6;
 
-  static const String BASE_URL = 'https://mypanel.ordery.shop';
-  static const String CATEGORY_URI = '/api/v1/categories';
+  static const String BASE_URL = 'https://apps.sa-counter.com/api';
+  static const String login = '/Account/Login';
+  static const String getAllUser = '/Account/GetAllUsers';
+  static const String getAllTraps = '/Traps/GetAllTraps';
+  static const String updateUser = '/Account/UpdateUser/';
+  static const String changePassword = '/Account/ChangePassword';
+  static const String getTrap = '/Traps/GetTrap/';
+  static const String updateTrap = '/Traps/EditTrap/';
 
   // Shared Key
   static const String THEME = 'theme';
-  static const String TOKEN = 'multivendor_token';
+  static const String expireOn = 'expireOn';
+  static const String token = 'multivendor_token';
   static const String COUNTRY_CODE = 'country_code';
   static const String LANGUAGE_CODE = 'language_code';
   static const String CART_LIST = 'cart_list';
@@ -32,14 +39,14 @@ class AppConstants {
 
   static List<LanguageModel> languages = [
     LanguageModel(
-        imageUrl: Images.arabic,
-        languageName: 'عربى',
-        countryCode: 'SA',
-        languageCode: 'ar'),
-    LanguageModel(
         imageUrl: Images.english,
         languageName: 'English',
         countryCode: 'US',
         languageCode: 'en'),
+    LanguageModel(
+        imageUrl: Images.arabic,
+        languageName: 'عربى',
+        countryCode: 'SA',
+        languageCode: 'ar'),
   ];
 }
