@@ -10,7 +10,6 @@ import 'package:bio_trap/view/screens/your_traps/your_traps_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -52,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                               } else if (index == 1) {
                                 Get.to(() => const UsersScreen());
                               } else if (index == 2) {
-                                Get.to(() =>  YourTrapScreen(
+                                Get.to(() => YourTrapScreen(
                                       traps: controller.traps,
                                     ));
                               }
@@ -132,7 +131,7 @@ class HomeScreen extends StatelessWidget {
             )),
         body: Obx(() => controller.state == ViewState.busy
             ? Center(
-                child:  Image.asset(
+                child: Image.asset(
                   Images.logoAnimation,
                   color: Theme.of(context).primaryColor,
                   width: Dimensions.width * 0.5,
@@ -143,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                     target: LatLng(controller.currentPosition.value.latitude,
                         controller.currentPosition.value.longitude),
                     zoom: 15),
-                markers: controller.markers.value,
+                markers: controller.markers,
                 onMapCreated: (created) {},
               )));
   }

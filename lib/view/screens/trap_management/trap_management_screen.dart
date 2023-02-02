@@ -38,39 +38,50 @@ class TrapManagementScreen extends StatelessWidget {
                   width: Dimensions.width * 0.3,
                   color: Theme.of(context).cardColor),
             )),
-        body: ListView.builder(
-            itemCount: traps!.length,
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (_, index) => Obx(() {
-                  // controller.checkValue.value =
-                  //     List.filled(traps!.length, false);
-                  return CustomCard(
-                    date:traps![index].readingDate??"00-00-00" ,
-                    switchFunction: (v) {
-                      // controller.checkValue[index] = v;
-                    },
-                    onNavigate: () async {
-                      await controller.getTrap(trapId: traps![index].id);
-                      Get.to(() => UpdateTrapScreen(
-                            trap: controller.trap,
-                          ));
-                    },
-                    co2Value: double.tryParse(traps![index].valveQut!)! / 100,
-                    fanValue: double.tryParse(traps![index].fan!)! / 100,
-                    lunchMap: () {
-                      controller.openMapDirection(
-                          lat: traps![index].lat!,
-                          long: traps![index].long!,
-                          title: traps![index].name);
-                    },
-                    name: traps![index].name,
-                    status: traps![index].isWorking == false ? "OFF" : "ON",
-                    color: traps![index].isWorking == false
-                        ? Theme.of(context).errorColor
-                        : Colors.green,
-                    switchValue: traps![index].isWorking,
-                  );
-                })));
+        body: Obx(() => controller.loading.value
+            ? Center(
+                child: Image.asset(
+                  Images.logoAnimation,
+                  color: Theme.of(context).primaryColor,
+                  width: Dimensions.width * 0.5,
+                ),
+              )
+            : ListView.builder(
+                itemCount: traps!.length,
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (_, index) => Obx(() {
+                      // controller.checkValue.value =
+                      //     List.filled(traps!.length, false);
+                      return CustomCard(
+                        date: traps![index].readingDate ?? "00-00-00",
+                        switchFunction: (v) {
+                          // controller.checkValue[index] = v;
+                        },
+                        onNavigate: () async {
+
+                          // controller.sendNotification();
+                          await controller.getTrap(trapId: traps![index].id);
+                          Get.to(() => UpdateTrapScreen(
+                                trap: controller.trap,
+                              ));
+                        },
+                        co2Value:
+                            double.tryParse(traps![index].valveQut!)! / 100,
+                        fanValue: double.tryParse(traps![index].fan!)! / 100,
+                        lunchMap: () {
+                          controller.openMapDirection(
+                              lat: traps![index].lat!,
+                              long: traps![index].long!,
+                              title: traps![index].name);
+                        },
+                        name: traps![index].name,
+                        status: traps![index].isWorking == false ? "OFF" : "ON",
+                        color: traps![index].isWorking == false
+                            ? Theme.of(context).errorColor
+                            : Colors.green,
+                        switchValue: traps![index].isWorking,
+                      );
+                    }))));
   }
 }

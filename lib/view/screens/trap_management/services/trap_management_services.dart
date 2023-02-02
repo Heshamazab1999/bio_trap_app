@@ -15,6 +15,7 @@ class TrapManagementServices {
       } else {
         showCustomSnackBar(message: "Error getting trap", isError: true);
       }
-    } catch (e) {}
+    } catch (e) {      print(e);
+    }
   }
 }

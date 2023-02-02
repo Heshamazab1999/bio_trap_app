@@ -1,4 +1,3 @@
-import 'package:bio_trap/routes/app_route.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/view/base/custom_button.dart';

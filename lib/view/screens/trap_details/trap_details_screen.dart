@@ -18,7 +18,7 @@ class TrapDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(TrapDetailsController());
-    print(trap!.isCounterOn);
+
     return Scaffold(
       backgroundColor: const Color(0xFFF9FEFE),
       appBar: PreferredSize(
@@ -53,151 +53,168 @@ class TrapDetailsScreen extends StatelessWidget {
             SizedBox(height: Dimensions.height * 0.02),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Working",
-                    style: robotoMedium.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: Dimensions.fontSizeLarge),
-                  ),
-                  Row(
-                    children: [
-                      Switch(
-                          value: trap!.isCounterOn!,
-                          onChanged: (v) {},
-                          activeColor: Theme.of(context).primaryColor,
-                          inactiveThumbColor: Theme.of(context).errorColor),
-                      Text(
-                        trap!.isCounterOn! ? "ON" : "OFF",
-                        style: robotoMedium.copyWith(
-                            fontSize: Dimensions.fontSizeLarge,
-                            color: trap!.isCounterOn!
-                                ? Theme.of(context).primaryColor
-                                : Theme.of(context).errorColor),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: [
-                  Text(
-                    "Last Reading Date :",
-                    style: robotoMedium.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: Dimensions.fontSizeLarge),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        trap!.readingDate == null
-                            ? "00-00-00"
-                            : trap!.readingDate!.split("/").first,
-                        // trap!.readingDate!.split("/").first??"00-00-00",
-                        style: robotoMedium.copyWith(
-                            fontSize: Dimensions.fontSizeLarge),
-                      ),
-                      SizedBox(width: Dimensions.width * 0.01),
-                      Image.asset(
-                        Images.calendarIcon,
-                        width: Dimensions.width * 0.06,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              child: Material(
+                  elevation: 1,
+                  shadowColor: Theme.of(context).primaryColor,
+                  child: ListTile(
+                    title: Text(
+                      "Working",
+                      style: robotoMedium.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: Dimensions.fontSizeLarge),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Switch(
+                            value: trap!.isCounterOn!,
+                            onChanged: (v) {},
+                            activeColor: Theme.of(context).primaryColor,
+                            inactiveThumbColor: Theme.of(context).errorColor),
+                        Text(
+                          trap!.isCounterOn! ? "ON" : "OFF",
+                          style: robotoMedium.copyWith(
+                              fontSize: Dimensions.fontSizeLarge,
+                              color: trap!.isCounterOn!
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).errorColor),
+                        )
+                      ],
+                    ),
+                  )),
             ),
             SizedBox(height: Dimensions.height * 0.01),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: [
-                  Text(
-                    "Last Reading Time :",
-                    style: robotoMedium.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: Dimensions.fontSizeLarge),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        trap!.readingDate == null
-                            ? "00-00-00"
-                            : trap!.readingDate!.split("/").last,
-                        style: robotoMedium.copyWith(
-                            fontSize: Dimensions.fontSizeLarge),
-                      ),
-                      SizedBox(width: Dimensions.width * 0.01),
-                      Image.asset(
-                        Images.clockIcon,
-                        width: Dimensions.width * 0.06,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              child: Material(
+                  elevation: 1,
+                  shadowColor: Theme.of(context).primaryColor,
+                  child: ListTile(
+                    title: Text(
+                      "Last Reading Date :",
+                      style: robotoMedium.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: Dimensions.fontSizeLarge),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              trap!.readingDate == null
+                                  ? "00-00-00"
+                                  : trap!.readingDate!.split("/").first,
+                              // trap!.readingDate!.split("/").first??"00-00-00",
+                              style: robotoMedium.copyWith(
+                                  fontSize: Dimensions.fontSizeLarge),
+                            ),
+                            SizedBox(width: Dimensions.width * 0.01),
+                            Image.asset(
+                              Images.calendarIcon,
+                              width: Dimensions.width * 0.06,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )),
             ),
+            SizedBox(height: Dimensions.height * 0.01),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text("Co2 Valve : ",
-                          style: TextStyle(
+              child: Material(
+                  elevation: 1,
+                  shadowColor: Theme.of(context).primaryColor,
+                  child: ListTile(
+                    title: Text(
+                      "Last Reading Time :",
+                      style: robotoMedium.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: Dimensions.fontSizeLarge),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              trap!.readingDate == null
+                                  ? "00-00-00"
+                                  : trap!.readingDate!.split("/").last,
+                              // trap!.readingDate!.split("/").first??"00-00-00",
+                              style: robotoMedium.copyWith(
+                                  fontSize: Dimensions.fontSizeLarge),
+                            ),
+                            SizedBox(width: Dimensions.width * 0.01),
+                            Image.asset(
+                              Images.clockIcon,
+                              width: Dimensions.width * 0.06,
                               color: Theme.of(context).primaryColor,
-                              fontSize: Dimensions.fontSizeDefault)),
-                      const SizedBox(width: 10),
-                      CircularPercentIndicator(
-                        radius: 15,
-                        animation: true,
-                        lineWidth: 2.0,
-                        percent: (double.tryParse(trap!.fan!)! / 100),
-                        center: Text("${(double.tryParse(trap!.fan!)! / 100)}%",
-                            style: robotoMedium.copyWith(
-                              fontSize: Dimensions.fontSizeExtraSmall,
-                            )),
-                        progressColor: (double.tryParse(trap!.fan!)! / 100) == 1
-                            ? Theme.of(context).errorColor
-                            : Colors.orangeAccent,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: Dimensions.height * 0.05),
-                  Row(
-                    children: [
-                      Text("Valve Qut :",
-                          style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: Dimensions.fontSizeDefault)),
-                      const SizedBox(width: 10),
-                      CircularPercentIndicator(
-                        radius: 15,
-                        animation: true,
-                        lineWidth: 2.0,
-                        percent: double.tryParse(trap!.valveQut!)! / 100,
-                        center:
-                            Text("${double.tryParse(trap!.valveQut!)! / 100}%",
-                                style: robotoMedium.copyWith(
-                                  fontSize: Dimensions.fontSizeExtraSmall,
-                                )),
-                        progressColor:
-                            (double.tryParse(trap!.valveQut!)! / 100) == 1
-                                ? Theme.of(context).errorColor
-                                : Colors.orangeAccent,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )),
+            ),
+            SizedBox(height: Dimensions.height * 0.01),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Material(
+                  elevation: 1,
+                  shadowColor: Theme.of(context).primaryColor,
+                  child: ListTile(
+                    title: Text("Co2 Valve : ",
+                        style: robotoMedium.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: Dimensions.fontSizeLarge)),
+                    trailing: CircularPercentIndicator(
+                      radius: 20,
+                      animation: true,
+                      lineWidth: 2.0,
+                      linearGradient: const LinearGradient(colors: [
+                        Color(0xFFFFA900),
+                        Color(0xFFFF7600),
+                        Color(0xFFCD113B),
+                      ], begin: Alignment.topRight, end: Alignment.topLeft),
+                      percent: (double.tryParse(trap!.fan!)! / 100),
+                      center: Text("${(double.tryParse(trap!.fan!)! / 100)}%",
+                          style: robotoMedium.copyWith(
+                            fontSize: Dimensions.fontSizeExtraSmall,
+                          )),
+                    ),
+                  )),
+            ),
+            SizedBox(height: Dimensions.height * 0.01),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Material(
+                  elevation: 1,
+                  shadowColor: Theme.of(context).primaryColor,
+                  child: ListTile(
+                    title: Text("Valve Qut :",
+                        style: robotoMedium.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: Dimensions.fontSizeLarge)),
+                    trailing: CircularPercentIndicator(
+                      radius: 20,
+                      animation: true,
+                      linearGradient: const LinearGradient(colors: [
+                        Color(0xFFFFA900),
+                        Color(0xFFFF7600),
+                        Color(0xFFCD113B),
+                      ], begin: Alignment.topRight, end: Alignment.topLeft),
+                      lineWidth: 2.0,
+                      percent: double.tryParse(trap!.valveQut!)! / 100,
+                      center:
+                          Text("${double.tryParse(trap!.valveQut!)! / 100}%",
+                              style: robotoMedium.copyWith(
+                                fontSize: Dimensions.fontSizeExtraSmall,
+                              )),
+                    ),
+                  )),
             ),
             SizedBox(height: Dimensions.height * 0.02),
             Row(
@@ -219,17 +236,18 @@ class TrapDetailsScreen extends StatelessWidget {
                               physics: const BouncingScrollPhysics(),
                               shrinkWrap: true,
                               gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 4,
-                                      crossAxisSpacing: 30,
-                                      mainAxisSpacing: 30),
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  childAspectRatio:1.7,
+                                  crossAxisSpacing: 4,
+                                  mainAxisSpacing: 4),
                               itemBuilder: (_, index) => Container(
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        offset: const Offset(0, 4),
-                                        blurRadius: 8,
-                                        color: Colors.black.withOpacity(0.3),
+                                        offset: const Offset(0, 3),
+                                        blurRadius: 4,
+                                        color: Colors.black.withOpacity(0.2),
                                       ),
                                     ],
                                     color:
@@ -271,15 +289,16 @@ class TrapDetailsScreen extends StatelessWidget {
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 4,
-                                      crossAxisSpacing: 30,
-                                      mainAxisSpacing: 30),
+                                      childAspectRatio:1.7,
+                                      crossAxisSpacing: 4,
+                                      mainAxisSpacing: 4),
                               itemBuilder: (_, index) => Container(
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        offset: const Offset(0, 4),
-                                        blurRadius: 8,
-                                        color: Colors.black.withOpacity(0.3),
+                                        offset: const Offset(0, 3),
+                                        blurRadius: 4,
+                                        color: Colors.black.withOpacity(0.2),
                                       ),
                                     ],
                                     color: trap!.trapValveQutSchedules![index]
@@ -323,17 +342,18 @@ class TrapDetailsScreen extends StatelessWidget {
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  crossAxisSpacing: 30,
-                                  mainAxisSpacing: 30),
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4,
+                              childAspectRatio:1.7,
+                              crossAxisSpacing: 4,
+                              mainAxisSpacing: 4),
                           itemBuilder: (_, index) => Container(
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    offset: const Offset(0, 4),
-                                    blurRadius: 8,
-                                    color: Colors.black.withOpacity(0.3),
+                                    offset: const Offset(0, 3),
+                                    blurRadius: 4,
+                                    color: Colors.black.withOpacity(0.2),
                                   ),
                                 ],
                                 color:
@@ -385,39 +405,38 @@ class TrapDetailsScreen extends StatelessWidget {
               indent: 40,
             ),
             SizedBox(height: Dimensions.height * 0.02),
-            Container(
-                child: SfCartesianChart(
-                    // Initialize category axis
-                    primaryXAxis: CategoryAxis(
-                      isVisible: true,
-                      arrangeByIndex: true,
-                    ),
-                    series: <LineSeries<TrapSchedules, dynamic>>[
-                  LineSeries<TrapSchedules, dynamic>(
-                      // Bind data source
-                      dataSource: trap!.trapValveQutSchedules!,
-                      isVisible: true,
-                      animationDuration: 1.0,
-                      color: Colors.green,
-                      xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
-                      yValueMapper: (TrapSchedules sales, _) => sales.id),
-                  LineSeries<TrapSchedules, dynamic>(
-                      // Bind data source
-                      dataSource: trap!.trapCounterSchedules!,
-                      isVisible: true,
-                      animationDuration: 1.0,
-                      color: Colors.amber,
-                      xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
-                      yValueMapper: (TrapSchedules sales, _) => sales.id),
-                  LineSeries<TrapSchedules, dynamic>(
-                      // Bind data source
-                      dataSource: trap!.trapFanSchedules!,
-                      isVisible: true,
-                      animationDuration: 1.0,
-                      color: Colors.red,
-                      xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
-                      yValueMapper: (TrapSchedules sales, _) => sales.id),
-                ])),
+            SfCartesianChart(
+                // Initialize category axis
+                primaryXAxis: CategoryAxis(
+                  isVisible: true,
+                  arrangeByIndex: true,
+                ),
+                series: <LineSeries<TrapSchedules, dynamic>>[
+              LineSeries<TrapSchedules, dynamic>(
+                  // Bind data source
+                  dataSource: trap!.trapValveQutSchedules!,
+                  isVisible: true,
+                  animationDuration: 1.0,
+                  color: Colors.green,
+                  xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
+                  yValueMapper: (TrapSchedules sales, _) => sales.id),
+              LineSeries<TrapSchedules, dynamic>(
+                  // Bind data source
+                  dataSource: trap!.trapCounterSchedules!,
+                  isVisible: true,
+                  animationDuration: 1.0,
+                  color: Colors.amber,
+                  xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
+                  yValueMapper: (TrapSchedules sales, _) => sales.id),
+              LineSeries<TrapSchedules, dynamic>(
+                  // Bind data source
+                  dataSource: trap!.trapFanSchedules!,
+                  isVisible: true,
+                  animationDuration: 1.0,
+                  color: Colors.red,
+                  xValueMapper: (TrapSchedules sales, _) => sales.scdTime,
+                  yValueMapper: (TrapSchedules sales, _) => sales.id),
+            ]),
             SizedBox(height: Dimensions.height * 0.02),
           ],
         ),

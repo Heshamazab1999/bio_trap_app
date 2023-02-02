@@ -91,8 +91,8 @@ class UsersController extends BaseController {
     setState(ViewState.busy);
     users.value = (await services.getAllUser())!;
     traps.value = (await services.getAllTraps())!;
-    print(users.length);
-    print(traps.length);
+    // print(users.length);
+     print(traps.length);
     setState(ViewState.idle);
   }
 
@@ -131,6 +131,7 @@ class UsersController extends BaseController {
       textEditingControllerNewPassword.clear();
       textEditingControllerOldPassword.clear();
       Get.back();
-    } catch (e) {}
+    } catch (e) {      print(e);
+    }
   }
 }

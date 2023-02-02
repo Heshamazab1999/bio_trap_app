@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-
 import 'package:bio_trap/controller/base_controller.dart';
 import 'package:bio_trap/enum/view_state.dart';
 import 'package:bio_trap/helper/cache_helper.dart';
@@ -106,10 +105,12 @@ class HomeController extends BaseController {
   drawAllMarkers() async {
     markers.clear();
     for (var element in traps) {
-      final Uint8List markerIcon =
-          await getBytesFromAsset(Images.targetIcon, 50);
+      final Uint8List markerIcon = await getBytesFromAsset(Images.pinIcon, 150);
       BitmapDescriptor markerBitmap = BitmapDescriptor.fromBytes(markerIcon);
       markers.add(Marker(
+          onTap: () {
+            openMapDirection(element.lat!, element.long!);
+          },
           icon: markerBitmap,
           markerId: MarkerId("${element.id}"),
           position: LatLng(element.lat!, element.long!)));

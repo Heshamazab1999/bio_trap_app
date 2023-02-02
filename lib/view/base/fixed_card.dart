@@ -69,7 +69,7 @@ class CustomCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(name!,
                           style: robotoMedium.copyWith(
@@ -103,6 +103,11 @@ class CustomCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
+                          Text("Co2 Valve: ",
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: Dimensions.fontSizeDefault)),
+                          const SizedBox(width: 10),
                           CircularPercentIndicator(
                             radius: 15,
                             animation: true,
@@ -112,17 +117,24 @@ class CustomCard extends StatelessWidget {
                                 style: robotoMedium.copyWith(
                                   fontSize: Dimensions.fontSizeExtraSmall,
                                 )),
-                            progressColor: Theme.of(context).primaryColor,
+                            linearGradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFFFFA900),
+                                  Color(0xFFFF7600),
+                                  Color(0xFFCD113B),
+                                ],
+                                begin: Alignment.topRight,
+                                end: Alignment.topLeft),
                           ),
-                          const SizedBox(width: 10),
-                          Text(": Co2 Valve",
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: Dimensions.fontSizeDefault)),
                         ],
                       ),
                       Row(
                         children: [
+                          Text("Fan:",
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: Dimensions.fontSizeDefault)),
+                          const SizedBox(width: 10),
                           CircularPercentIndicator(
                             radius: 15,
                             lineWidth: 2.0,
@@ -132,13 +144,15 @@ class CustomCard extends StatelessWidget {
                                 style: robotoMedium.copyWith(
                                   fontSize: Dimensions.fontSizeExtraSmall,
                                 )),
-                            progressColor: Theme.of(context).primaryColor,
+                            linearGradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFFFFA900),
+                                  Color(0xFFFF7600),
+                                  Color(0xFFCD113B),
+                                ],
+                                begin: Alignment.topRight,
+                                end: Alignment.topLeft),
                           ),
-                          const SizedBox(width: 10),
-                          Text(":Fan",
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: Dimensions.fontSizeDefault)),
                         ],
                       )
                     ],
@@ -156,7 +170,7 @@ class CustomCard extends StatelessWidget {
                           )),
                       Image.asset(
                         Images.calendarIcon,
-                        width: 20,
+                        width: 25,
                         color: Theme.of(context).primaryColor,
                       )
                     ],
@@ -176,7 +190,7 @@ class CustomCard extends StatelessWidget {
                               BorderRadius.circular(Dimensions.RADIUS_SMALL),
                           child: Container(
                             width: Dimensions.width * 0.3,
-                            height: Dimensions.height * 0.03,
+                            height: Dimensions.height * 0.04,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.RADIUS_SMALL),
@@ -186,11 +200,12 @@ class CustomCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "location_trap".tr,
+                                  "location".tr,
                                   style: robotoMedium.copyWith(
                                       fontWeight: FontWeight.bold,
                                       fontSize: Dimensions.fontSizeSmall),
                                 ),
+                                const SizedBox(width: 5,),
                                 Flexible(child: Image.asset(Images.map)),
                               ],
                             ),
@@ -201,7 +216,7 @@ class CustomCard extends StatelessWidget {
                         onTap: onNavigate,
                         child: Image.asset(
                           Images.editIcon,
-                          width: 30,
+                          width: 40,
                           color: Theme.of(context).primaryColor,
                         ),
                       )

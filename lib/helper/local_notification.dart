@@ -16,16 +16,14 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   static const AndroidNotificationDetails _androidNotificationDetails =
-      AndroidNotificationDetails(
-    channelId,
-    "test",
-    channelDescription:
-        "This channel is responsible for all the local notifications",
-    playSound: true,
-    priority: Priority.high,
-    // sound: UriAndroidNotificationSound("assets/sounds/notification.mp3"),
-    importance: Importance.max,
-  );
+      AndroidNotificationDetails(channelId, "test",
+          channelDescription:
+              "This channel is responsible for all the local notifications",
+          importance: Importance.max,
+          priority: Priority.high,
+          playSound: true,
+          sound: UriAndroidNotificationSound("assets/tunes/Notification.mp3"),
+          icon: '@mipmap/ic_launcher');
 
   // static const IOSNotificationDetails _iosInitializationSetting=IOSNotificationDetails();
 

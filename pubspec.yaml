@@ -57,6 +57,8 @@ dependencies:
   syncfusion_flutter_charts: ^20.4.44
   flutter_local_notifications:
   flutter_ringtone_player: ^3.2.0
+  retry: ^3.1.0
+  dio_cache_interceptor: ^3.3.1
 
 
 
@@ -88,6 +90,7 @@ flutter:
   assets:
     - assets/image/
     - assets/language/
+    - assets/tunes/
   fonts:
     - family: Roboto
       fonts:

@@ -15,11 +15,13 @@ class UpdateServices {
       print(response.statusCode);
       print(response.data);
       if (response.statusCode == 200) {
-        Utility.displaySuccessAlert("Success Updating Trap", context);
+        
+         Utility.displaySuccessAlert("Success Updating Trap", context);
         // showCustomSnackBar(message: "Updated successfully", isError: false);
       } else {
         showCustomSnackBar(message: "Failed to update", isError: true);
       }
-    } catch (e) {}
+    } catch (e) {      print(e);
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:bio_trap/helper/cache_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:bio_trap/helper/dio_interceptors.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 
 import '../util/app_constants.dart';
 
@@ -12,9 +13,20 @@ class DioUtilNew {
     if (_instance == null) {
       _dio = Dio(_getOptions());
       _dio!.interceptors.add(CustomInterceptors());
+      _dio!.interceptors.add(DioCacheInterceptor(options: CacheOptions(
+        store: MemCacheStore(),
+        policy: CachePolicy.request,
+        hitCacheOnErrorExcept: [401, 403],
+        maxStale: const Duration(days: 7),
+        priority: CachePriority.normal,
+        cipher: null,
+        keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+        allowPostMethod: false,
+      )));
     }
     return _instance;
   }
+
 
   static Dio? get dio => _dio;
 
@@ -39,7 +51,8 @@ class DioUtilNew {
     };
     options.queryParameters = {};
 
-    return options;
+    return
+      options;
   }
 
   //this just returns the language key
@@ -50,7 +63,7 @@ class DioUtilNew {
         errorDescription = "request_cancelled";
         break;
       case DioErrorType.connectTimeout:
-        //Connection timeout with API server
+      //Connection timeout with API server
         errorDescription = "timeout";
         break;
       case DioErrorType.other:

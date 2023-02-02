@@ -105,18 +105,13 @@ class UpdateTrapController extends BaseController {
     TimeModel(scdTime: 23, status: false),
   ];
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-  }
 
   Future displayTimePicker(BuildContext context) async {
     var time =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
 
     if (time != null) {
-      print("Time: " + time.hour.toString());
+      print("Time: ${time.hour}");
     }
   }
 

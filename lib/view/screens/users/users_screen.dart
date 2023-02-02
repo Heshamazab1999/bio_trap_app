@@ -8,7 +8,6 @@ import 'package:bio_trap/view/base/fixed_text_field.dart';
 import 'package:bio_trap/view/screens/users/controller/users_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 class UsersScreen extends StatelessWidget {
   const UsersScreen({Key? key}) : super(key: key);

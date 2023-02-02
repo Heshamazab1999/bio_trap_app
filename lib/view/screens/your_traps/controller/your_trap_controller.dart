@@ -12,6 +12,8 @@ class YourTrapController extends BaseController {
       setState(ViewState.busy);
       trap = await services.getTrap(id: trapId);
       setState(ViewState.idle);
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 }

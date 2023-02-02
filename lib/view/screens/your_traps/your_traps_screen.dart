@@ -55,7 +55,7 @@ class YourTrapScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: Material(
-                            elevation: 2,
+                            elevation: 1,
                             shadowColor: Theme.of(context).primaryColor,
                             child: ListTile(
                               onTap: () async {
@@ -75,21 +75,7 @@ class YourTrapScreen extends StatelessWidget {
                             ),
                           ),
                         ))
-            // GridView.builder(
-            //     itemCount: 10,
-            //     physics: const BouncingScrollPhysics(),
-            //     shrinkWrap: true,
-            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 2,
-            //         childAspectRatio: 3 / 3,
-            //         crossAxisSpacing: 5,
-            //         mainAxisSpacing: 5),
-            //     itemBuilder: (_, index) => TrapCard(
-            //           onTap: () {
-            //             Get.to(()=>const TrapDetailsScreen());
-            //           },
-            //           name: "Trap Name",
-            //         )),
+
             ));
   }
 }

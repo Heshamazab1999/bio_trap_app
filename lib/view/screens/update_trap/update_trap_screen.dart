@@ -300,17 +300,17 @@ class UpdateTrapScreen extends StatelessWidget {
                 icon: Icons.timelapse,
                 list: controller.slideRangeScheduleFan,
                 onConfirm: (values) {
-                  values.forEach((element) {
+                  for (var element in values) {
                     bool value = element.status = !element.status;
                     controller.slideRangeScheduleFan
                         .where((element) => element.status == value);
-                    controller.slideRangeScheduleFan.forEach((element) {});
-                  });
+
+                  }
 
                   print(controller.slideRangeScheduleFan.length);
-                  controller.slideRangeScheduleFan.forEach((element) {
+                  for (var element in controller.slideRangeScheduleFan) {
                     print(element.status);
-                  });
+                  }
                 },
               ),
               SizedBox(
@@ -325,17 +325,17 @@ class UpdateTrapScreen extends StatelessWidget {
                 icon: Icons.timelapse,
                 list: controller.slideRangeScheduleCounter,
                 onConfirm: (values) {
-                  values.forEach((element) {
+                  for (var element in values) {
                     bool value = element.status = !element.status;
                     controller.slideRangeScheduleCounter
                         .where((element) => element.status == value);
-                    controller.slideRangeScheduleCounter.forEach((element) {});
-                  });
+
+                  }
 
                   print(controller.slideRangeScheduleCounter.length);
-                  controller.slideRangeScheduleCounter.forEach((element) {
+                  for (var element in controller.slideRangeScheduleCounter) {
                     print(element.status);
-                  });
+                  }
                 },
               ),
               SizedBox(
@@ -350,17 +350,17 @@ class UpdateTrapScreen extends StatelessWidget {
                 icon: Icons.timelapse,
                 list: controller.slideRangeScheduleValueQut,
                 onConfirm: (values) {
-                  values.forEach((element) {
+                  for (var element in values) {
                     bool value = element.status = !element.status;
                     controller.slideRangeScheduleValueQut
                         .where((element) => element.status == value);
-                    controller.slideRangeScheduleValueQut.forEach((element) {});
-                  });
+
+                  }
 
                   print(controller.slideRangeScheduleValueQut.length);
-                  controller.slideRangeScheduleValueQut.forEach((element) {
+                  for (var element in controller.slideRangeScheduleValueQut) {
                     print(element.status);
-                  });
+                  }
                 },
               ),
               SizedBox(

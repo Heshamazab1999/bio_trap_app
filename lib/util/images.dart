@@ -20,6 +20,7 @@ class Images {
   static const String targetIcon = 'assets/image/target.png';
   static const String successIcon = 'assets/image/sucess.json';
   static const String userEditIcon = 'assets/image/user_edit.png';
+  static const String pinIcon = 'assets/image/pin.png';
   static const String passwordIcon = 'assets/image/password.png';
   static const String visualizationIcon = 'assets/image/visualization.png';
   static const String placeholder = 'assets/image/placeholder.png';
