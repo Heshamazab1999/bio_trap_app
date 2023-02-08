@@ -1,4 +1,5 @@
 import 'package:bio_trap/routes/app_route.dart';
+import 'package:bio_trap/view/screens/add_trap/add_trap_screen.dart';
 import 'package:bio_trap/view/screens/auth/sign_in_screen.dart';
 import 'package:bio_trap/view/screens/home/home_screen.dart';
 import 'package:bio_trap/view/screens/splash/splash_screen.dart';
@@ -42,6 +43,10 @@ class AppScreen {
     GetPage(
       name: AppRoute.trapDetailsScreen,
       page: () => const TrapDetailsScreen(),
+    ),
+    GetPage(
+      name: AppRoute.AddTrapScreen,
+      page: () => const AddTrapScreen(),
     ),
   ];
 }

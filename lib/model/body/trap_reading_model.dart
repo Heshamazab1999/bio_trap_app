@@ -1,27 +1,27 @@
-class TrapModel {
-  TrapModel(
-      {this.id,
-      this.name,
-      this.serialNumber,
-      this.isWorking,
-      this.status,
-      this.iema,
-      this.valveQut,
-      this.fan,
-      this.isCounterOn,
-      this.isCounterReadingFromSimCard,
-      this.readingDate,
-      this.lat,
-      this.long,
-      this.isScheduleOn,
-      this.trapEmergencies,
-      this.trapCounterSchedules,
-      this.trapFanSchedules,
-      this.trapValveQutSchedules,
-      // this.lastRead
-      });
+class TrapReadingModel {
+  TrapReadingModel({
+    this.id,
+    this.name,
+    this.serialNumber,
+    this.isWorking,
+    this.status,
+    this.iema,
+    this.valveQut,
+    this.fan,
+    this.isCounterOn,
+    this.isCounterReadingFromSimCard,
+    this.readingDate,
+    this.lat,
+    this.long,
+    this.isScheduleOn,
+    this.trapEmergencies,
+    this.trapCounterSchedules,
+    this.trapFanSchedules,
+    this.trapValveQutSchedules,
+    // this.lastRead
+  });
 
-  TrapModel.fromJson(dynamic json) {
+  TrapReadingModel.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
     serialNumber = json['serialNumber'];
@@ -37,7 +37,7 @@ class TrapModel {
     long = json['long'];
     isScheduleOn = json['isScheduleOn'];
     trapEmergencies = json['trapEmergencies'];
-    // lastRead = LastReadingModel.fromJson(json['lastRead']);
+    lastRead = LastReadingModel.fromJson(json['lastRead']);
     if (json['trapCounterSchedules'] != null) {
       trapCounterSchedules = [];
       json['trapCounterSchedules'].forEach((v) {
@@ -73,7 +73,7 @@ class TrapModel {
   double? long;
   bool? isScheduleOn;
   List<dynamic>? trapEmergencies;
-  // LastReadingModel? lastRead;
+  LastReadingModel? lastRead;
   List<TrapSchedules>? trapCounterSchedules;
   List<TrapSchedules>? trapFanSchedules;
   List<TrapSchedules>? trapValveQutSchedules;
@@ -245,8 +245,8 @@ class LastReadingModel {
   int? id;
   String? readingDate;
   String? readingTime;
-  double? lat;
-  double? long;
+  int? lat;
+  int? long;
   String? counter;
   String? fan;
   String? co2;

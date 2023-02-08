@@ -13,12 +13,12 @@ class ThemeController extends BaseController {
 
   void toggleTheme() {
     _darkTheme = !_darkTheme;
-    CacheHelper.saveData(key: AppConstants.THEME, value: _darkTheme);
+    CacheHelper.saveData(key: AppConstants.theme, value: _darkTheme);
     update();
   }
 
   void _loadCurrentTheme() async {
-    _darkTheme = CacheHelper.getData(key: AppConstants.THEME) ?? false;
+    _darkTheme = CacheHelper.getData(key: AppConstants.theme) ?? false;
     update();
   }
 }

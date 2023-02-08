@@ -35,6 +35,69 @@ class UsersScreen extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColor,
               elevation: 0,
               centerTitle: true,
+              actions: [
+                GestureDetector(
+                  onTap: () {
+                    Utility.displayUpdateAlert(
+                        context,
+                        Column(
+                          children: [
+                            Obx(() => FixedTextField(
+                                  controller:
+                                      controller.textEditingControllerEmailUser,
+                                  errorLabel: controller.emailUser.error,
+                                  function: (name) {
+                                    controller.changeEmailUser(name);
+                                  },
+                                  autoFocus: true,
+                                  label: "Email",
+                                )),
+                            SizedBox(height: Dimensions.height * 0.02),
+                            Obx(() => FixedTextField(
+                                  controller:
+                                      controller.textEditingControllerUserName,
+                                  errorLabel: controller.userName.error,
+                                  function: (name) {
+                                    controller.changeNameUser(name);
+                                  },
+                                  autoFocus: true,
+                                  label: "UserName",
+                                )),
+                            SizedBox(height: Dimensions.height * 0.02),
+                            Obx(() => FixedTextField(
+                                  controller:
+                                      controller.textEditingControllerPassword,
+                                  errorLabel: controller.password.error,
+                                  function: (name) {
+                                    controller.changePasswordUser(name);
+                                  },
+                                  autoFocus: true,
+                                  label: "Password",
+                                )),
+                            SizedBox(height: Dimensions.height * 0.02),
+                            CustomMultiSelectTrap(
+                              label: "Traps",
+                              list: controller.traps,
+                              onConfirm: (values) {
+                                for (var element in values) {
+                                  print(element.id);
+                                  controller.trapIds.add(element.id);
+                                }
+                                print(controller.trapIds.length);
+                              },
+                              icon: Icons.grid_view_rounded,
+                            ),
+                          ],
+                        ), onConfirm: () {
+                      controller.addUser(context);
+                      Get.back();
+                    });
+                  },
+                  child: Image.asset(Images.moreIcon,
+                      width: 25, color: Theme.of(context).cardColor),
+                ),
+                const SizedBox(width: 20),
+              ],
               title: Image.asset(Images.logoNewIcon,
                   width: Dimensions.width * 0.3,
                   color: Theme.of(context).cardColor),
@@ -143,40 +206,45 @@ class UsersScreen extends StatelessWidget {
                                                       .users[index]
                                                       .trapIds!
                                                       .length,
-                                                  itemBuilder: (_, indexUser) =>
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(2),
-                                                        child: Chip(
-                                                          label: Text(controller
-                                                              .users[index]
-                                                              .trapIds![
-                                                                  indexUser]
-                                                              .toString()),
-                                                          elevation: 2,
-                                                          backgroundColor:
-                                                              Theme.of(context)
-                                                                  .primaryColor
-                                                                  .withOpacity(
-                                                                      0.4),
-                                                          shadowColor:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      Dimensions
-                                                                          .RADIUS_SMALL)),
-                                                        ),
-                                                      )),
+                                                  itemBuilder: (_, indexUser) {
+                                                    controller.trapIds.add(
+                                                        controller.users[index]
+                                                                .trapIds![
+                                                            indexUser]);
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              2),
+                                                      child: Chip(
+                                                        label: Text(controller
+                                                            .users[index]
+                                                            .trapIds![indexUser]
+                                                            .toString()),
+                                                        elevation: 2,
+                                                        backgroundColor:
+                                                            Theme.of(context)
+                                                                .primaryColor
+                                                                .withOpacity(
+                                                                    0.4),
+                                                        shadowColor:
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    Dimensions
+                                                                        .RADIUS_SMALL)),
+                                                      ),
+                                                    );
+                                                  }),
                                             )
                                           ],
                                         ),
                                         loading: controller.loading,
                                         onConfirm: () {
-                                      controller.updateUser(
+                                      controller.updateUser(context,
                                           id: controller.users[index].id);
+                                      Get.back();
                                     });
                                   },
                                   child: Image.asset(Images.userEditIcon,
@@ -240,6 +308,20 @@ class UsersScreen extends StatelessWidget {
                                       width: Dimensions.width * 0.06,
                                       color: Theme.of(context).primaryColor),
                                 ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.deleteUser(context,
+                                        userId: controller.users[index].id);
+                                  },
+                                  child: Image.asset(
+                                    Images.deleteIcon,
+                                    width: 20,
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
+                                )
                               ],
                             ),
                             shape: RoundedRectangleBorder(

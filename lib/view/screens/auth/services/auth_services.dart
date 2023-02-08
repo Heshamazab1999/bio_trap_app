@@ -20,13 +20,18 @@ class AuthServices {
         CacheHelper.saveData(
             key: AppConstants.expireOn, value: userModel.data!.expiresOn);
         CacheHelper.saveData(
+            key: AppConstants.role, value: userModel.data!.role);
+        CacheHelper.saveData(
             key: AppConstants.token, value: userModel.data!.token);
         print(response.data);
         Get.offAllNamed(AppRoute.homeScreen);
         DioUtilNew.setDioAgain();
-      }else if(response.statusCode==400){
-        showCustomSnackBar(message: "Error in Email Or Password",isError: true);
+      } else if (response.statusCode == 400) {
+        showCustomSnackBar(
+            message: "Error in Email Or Password", isError: true);
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 }

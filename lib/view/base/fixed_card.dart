@@ -1,3 +1,5 @@
+import 'package:bio_trap/helper/cache_helper.dart';
+import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/util/styles.dart';
@@ -14,12 +16,14 @@ class CustomCard extends StatelessWidget {
   final double? fanValue;
   final Function()? lunchMap;
   final Function()? onNavigate;
+  final Function()? deleteFun;
   final Function(bool)? switchFunction;
   final Color? color;
 
   const CustomCard(
       {Key? key,
       this.co2Value,
+      this.deleteFun,
       this.status,
       this.switchValue,
       this.fanValue,
@@ -68,6 +72,9 @@ class CustomCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SizedBox(
+                    height: Dimensions.height * 0.01,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -78,25 +85,32 @@ class CustomCard extends StatelessWidget {
                           )),
                       Row(
                         children: [
-                          Switch(
-                            value: switchValue!,
-                            onChanged: switchFunction,
-                            inactiveThumbColor: Theme.of(context).errorColor,
-                            activeColor: Theme.of(context).primaryColor,
+                          GestureDetector(
+                            onTap: onNavigate,
+                            child: Image.asset(
+                              Images.listIcon,
+                              width: 30,
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
-                          Text(status!,
-                              style: TextStyle(
-                                  color: color,
-                                  fontSize: Dimensions.fontSizeDefault)),
-                          const SizedBox(
-                            width: 10,
-                          )
+                          const SizedBox(width: 8),
+                          CacheHelper.getData(key: AppConstants.role) ==
+                                  "SuperAdmin"
+                              ? GestureDetector(
+                                  onTap: deleteFun,
+                                  child: Image.asset(
+                                    Images.deleteIcon,
+                                    width: 25,
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
+                                )
+                              : const SizedBox(),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   SizedBox(
-                    height: Dimensions.height * 0.0001,
+                    height: Dimensions.height * 0.01,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -205,20 +219,32 @@ class CustomCard extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       fontSize: Dimensions.fontSizeSmall),
                                 ),
-                                const SizedBox(width: 5,),
+                                const SizedBox(
+                                  width: 5,
+                                ),
                                 Flexible(child: Image.asset(Images.map)),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: onNavigate,
-                        child: Image.asset(
-                          Images.editIcon,
-                          width: 40,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                      Row(
+                        children: [
+                          Switch(
+                            value: switchValue!,
+                            onChanged: switchFunction,
+                            inactiveThumbColor:
+                                Theme.of(context).colorScheme.error,
+                            activeColor: Theme.of(context).primaryColor,
+                          ),
+                          Text(status!,
+                              style: robotoMedium.copyWith(
+                                  color: color,
+                                  fontSize: Dimensions.fontSizeLarge)),
+                          const SizedBox(
+                            width: 10,
+                          )
+                        ],
                       )
                     ],
                   ),

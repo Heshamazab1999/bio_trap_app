@@ -3,21 +3,29 @@ import 'package:bio_trap/util/images.dart';
 import '../model/response/language_model.dart';
 
 class AppConstants {
-  static const String APP_NAME = 'Bio Trap';
-  static const double APP_VERSION = 5.6;
+  static const String appName = 'Bio Trap';
+  static const double appVersion = 5.6;
 
-  static const String BASE_URL = 'https://apps.sa-counter.com/api';
+  static const String baseUrl = 'https://apps.sa-counter.com/api';
   static const String login = '/Account/Login';
   static const String getAllUser = '/Account/GetAllUsers';
   static const String getAllTraps = '/Traps/GetAllTraps';
   static const String updateUser = '/Account/UpdateUser/';
+  static const String addUser = '/Account/AddUser';
+  static const String deleteUser = '/Account/DeleteUser/';
   static const String changePassword = '/Account/ChangePassword';
   static const String getTrap = '/Traps/GetTrap/';
   static const String updateTrap = '/Traps/EditTrap/';
+  static const String addTrap = '/Traps/AddTrap';
+  static const String getTrapReading = '/Traps/GetTrapReadings/';
+  static const String deleteTrap = '/Traps/DeleteTrap/';
+  static const String lastReadTrap = 'Traps/GetLastReadForTrap/69';
+
 
   // Shared Key
-  static const String THEME = 'theme';
+  static const String theme = 'theme';
   static const String expireOn = 'expireOn';
+  static const String role = 'role';
   static const String token = 'multivendor_token';
   static const String COUNTRY_CODE = 'country_code';
   static const String LANGUAGE_CODE = 'language_code';

@@ -15,6 +15,7 @@ class FixedTextField extends StatelessWidget {
       this.nextFocus,
       this.prefixIcon,
       this.suffixIcon,
+      this.enable = true,
       this.autoFocus = false,
       this.hint = "",
       this.obSecure = false,
@@ -33,21 +34,22 @@ class FixedTextField extends StatelessWidget {
   final bool? obSecure;
   final String? hint;
   final bool? autoFocus;
+  final bool? enable;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.0),
       child: Column(
         children: [
           SizedBox(
             height: 40,
             child: TextFormField(
-              
+              enabled: enable,
               autofocus: autoFocus!,
               obscureText: obSecure!,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(4),
+                  contentPadding: const EdgeInsets.all(4),
                   hintStyle: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,

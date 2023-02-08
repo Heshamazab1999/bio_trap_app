@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ClockRangeWidget extends StatefulWidget {
+  const ClockRangeWidget({super.key});
+
   @override
   State<StatefulWidget> createState() => _ClockRangeWidget();
 }

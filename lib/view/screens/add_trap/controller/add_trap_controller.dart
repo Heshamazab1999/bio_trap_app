@@ -3,6 +3,7 @@ import 'package:bio_trap/helper/cache_helper.dart';
 import 'package:bio_trap/model/body/time_model.dart';
 import 'package:bio_trap/model/body/update_trap.dart';
 import 'package:bio_trap/util/app_constants.dart';
+import 'package:bio_trap/util/utility.dart';
 import 'package:bio_trap/view/base/custom_snackbar.dart';
 import 'package:bio_trap/view/screens/update_trap/services/update_services.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-import '../../../../enum/view_state.dart';
-
-class UpdateTrapController extends BaseController {
+class AddTrapController extends BaseController {
   final services = UpdateServices();
   final fanValue = 0.0.obs;
   final qutValue = 0.0.obs;
@@ -37,9 +36,7 @@ class UpdateTrapController extends BaseController {
   @override
   onInit() async {
     super.onInit();
-    setState(ViewState.busy);
     role.value = await CacheHelper.getData(key: AppConstants.role);
-    setState(ViewState.idle);
   }
 
   List<TimeModel> slideRangeScheduleFan = [
@@ -178,13 +175,11 @@ class UpdateTrapController extends BaseController {
       await showDatePicker(
         context: context,
         lastDate: DateTime(2100),
-        firstDate: CacheHelper.getData(key: AppConstants.role) == "SuperAdmin"
-            ? DateTime(2000)
-            : DateTime(2023, 2),
+        firstDate: DateTime(2000),
         initialDate: dateTime.value,
       );
 
-  updateTrap(BuildContext context, {int? trapId}) async {
+  addTrap(BuildContext context) async {
     try {
       if (textEditingControllerLat.text.isEmpty &&
           textEditingControllerLon.text.isEmpty) {
@@ -195,37 +190,29 @@ class UpdateTrapController extends BaseController {
         showCustomSnackBar(message: "Enter your Trap Details", isError: true);
       } else {
         send.value = true;
-        await services.updateTrap(context,
-            id: trapId,
+        await services.addTrap(
             model: UpdateTrapModel(
-              name: textEditingControllerName.text,
-              serialNumber: textEditingControllerSerial.text,
-              iema: int.tryParse(textEditingControllerLema.text),
-              lat: textEditingControllerLat.text,
-              long: textEditingControllerLon.text,
-              isCounterOn: switchValue.isTrue,
-              // isWorking: switchValue.value,
-              isScheduleOn: switchScheduleValue.value,
-              isCounterReadingFromSimCard: switchSimCard.value,
-              readingDate: readingDate.value,
-              trapFanSchedules: slideRangeScheduleFan,
-              trapCounterSchedules: slideRangeScheduleCounter,
-              trapValveQntSchedules: slideRangeScheduleValueQut,
-              fan: fanValue.value.toString(),
-              valveQut: qutValue.value.toString(),
-              status: 0,
-            ));
+          name: textEditingControllerName.text,
+          serialNumber: textEditingControllerSerial.text,
+          iema: int.tryParse(textEditingControllerLema.text),
+          lat: textEditingControllerLat.text,
+          long: textEditingControllerLon.text,
+          isCounterOn: switchValue.value,
+          isScheduleOn: switchScheduleValue.value,
+          // isCounterReadingFromSimCard: switchSimCard.value,
+          // readingDate: readingDate.value,
+          trapFanSchedules: slideRangeScheduleFan,
+          trapCounterSchedules: slideRangeScheduleCounter,
+          trapValveQntSchedules: slideRangeScheduleValueQut,
+          fan: fanValue.value.toString(),
+          valveQut: qutValue.value.toString(),
+          // status: 0,
+        ));
+        Utility.displaySuccessAlert("Success Adding Trap", context);
         send.value = false;
       }
     } catch (e) {
       send.value = false;
     }
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    Get.delete<UpdateTrapController>();
   }
 }

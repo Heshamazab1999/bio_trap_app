@@ -1,4 +1,3 @@
-import 'package:bio_trap/enum/view_state.dart';
 import 'package:bio_trap/model/body/trap_model.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
@@ -26,7 +25,9 @@ class YourTrapScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Builder(
                   builder: (context) => GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => Get.back(
+                      closeOverlays: true,
+                    ),
                     child: Image.asset(Images.arrowIcon,
                         color: Theme.of(context).cardColor),
                   ),
@@ -39,43 +40,41 @@ class YourTrapScreen extends StatelessWidget {
                   width: Dimensions.width * 0.3,
                   color: Theme.of(context).cardColor),
             )),
-        body: Obx(() => controller.state == ViewState.busy
-                ? Center(
-                    child: Image.asset(
-                      Images.logoAnimation,
-                      color: Theme.of(context).primaryColor,
-                      width: Dimensions.width * 0.5,
-                    ),
-                  )
-                : ListView.builder(
-                    itemCount: traps!.length,
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (_, index) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Material(
-                            elevation: 1,
-                            shadowColor: Theme.of(context).primaryColor,
-                            child: ListTile(
-                              onTap: () async {
-                                await controller.getTrap(
-                                    trapId: traps![index].id);
-                                Get.to(() => TrapDetailsScreen(
-                                      trap: controller.trap,
-                                    ));
-                              },
-                              leading: Image.asset(Images.trapIcon),
-                              title: Text(traps![index].name!,
-                                  style: robotoMedium.copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: Dimensions.fontSizeLarge)),
-                              trailing: Icon(Icons.arrow_forward_ios,
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                          ),
-                        ))
+        body: Obx(() => controller.loading.value
+            ? Center(
+                child: Image.asset(
+                  Images.logoAnimation,
+                  color: Theme.of(context).primaryColor,
+                  width: Dimensions.width * 0.5,
+                ),
+              )
+            : ListView.builder(
+                itemCount: traps!.length,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (_, index) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Material(
+                        elevation: 1,
+                        shadowColor: Theme.of(context).primaryColor,
+                        child: ListTile(
+                          onTap: () async {
+                             await controller.getTrap(trapId: traps![index].id);
+                            Get.to(() => TrapDetailsScreen(
+                                  trap: controller.trap,
 
-            ));
+                                ));
+                          },
+                          leading: Image.asset(Images.trapIcon),
+                          title: Text(traps![index].name!,
+                              style: robotoMedium.copyWith(
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: Dimensions.fontSizeLarge)),
+                          trailing: Icon(Icons.arrow_forward_ios,
+                              color: Theme.of(context).primaryColor),
+                        ),
+                      ),
+                    ))));
   }
 }

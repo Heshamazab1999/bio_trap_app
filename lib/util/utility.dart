@@ -1,7 +1,6 @@
 import 'package:bio_trap/routes/app_route.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
-import 'package:bio_trap/view/base/fixed_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';

@@ -13,6 +13,7 @@ class UsersController extends BaseController {
   final users = <UsersModel>[].obs;
   final traps = <TrapModel>[].obs;
   final trapIds = <int>[].obs;
+
   TextEditingController textEditingControllerName = TextEditingController();
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerOldPassword =
@@ -21,16 +22,29 @@ class UsersController extends BaseController {
       TextEditingController();
   TextEditingController textEditingControllerConfirmPassword =
       TextEditingController();
+  TextEditingController textEditingControllerPassword = TextEditingController();
+  TextEditingController textEditingControllerUserName = TextEditingController();
+  TextEditingController textEditingControllerEmailUser =
+      TextEditingController();
   final _email = Valid().obs;
   final _name = Valid().obs;
   final _oldPassword = Valid().obs;
   final _newPassword = Valid().obs;
   final _confirmPassword = Valid().obs;
+  final _userName = Valid().obs;
+  final _password = Valid().obs;
+  final _emailUser = Valid().obs;
   final _loading = false.obs;
 
   Valid get email => _email.value;
 
   Valid get name => _name.value;
+
+  Valid get userName => _userName.value;
+
+  Valid get password => _password.value;
+
+  Valid get emailUser => _emailUser.value;
 
   Valid get oldPassword => _oldPassword.value;
 
@@ -84,6 +98,31 @@ class UsersController extends BaseController {
     }
   }
 
+  changeNameUser(String name) {
+    if (name.trim().length < 6) {
+      _userName.value = Valid(error: "your name must be greater than 6");
+    } else {
+      _userName.value = Valid(value: name);
+    }
+  }
+
+  changePasswordUser(String name) {
+    if (name.trim().length < 8) {
+      _password.value = Valid(error: "your password greater than 8 characters");
+    } else {
+      _password.value = Valid(value: name);
+    }
+  }
+
+  changeEmailUser(String name) {
+    if (name.trim().length < 6) {
+      _emailUser.value =
+          Valid(error: "your email must be greater than 6 characters");
+    } else {
+      _emailUser.value = Valid(value: name);
+    }
+  }
+
   @override
   void onInit() async {
     // TODO: implement onInit
@@ -92,23 +131,23 @@ class UsersController extends BaseController {
     users.value = (await services.getAllUser())!;
     traps.value = (await services.getAllTraps())!;
     // print(users.length);
-     print(traps.length);
+    print(traps.length);
     setState(ViewState.idle);
   }
 
-  updateUser({String? id}) async {
+  updateUser(BuildContext context, {String? id}) async {
     try {
       if ((_email.value.isValid() && _name.value.isValid())) {
         _loading.value = true;
-        await services.updateUser(
+        await services.updateUser(context,
             id: id,
             email: _email.value.value,
             userName: _name.value.value,
             trapIds: trapIds);
         textEditingControllerName.clear();
         textEditingControllerEmail.clear();
+        trapIds.clear();
         _loading.value = false;
-        Get.back();
       } else {
         _loading.value = false;
         showCustomSnackBar(
@@ -131,7 +170,31 @@ class UsersController extends BaseController {
       textEditingControllerNewPassword.clear();
       textEditingControllerOldPassword.clear();
       Get.back();
-    } catch (e) {      print(e);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  deleteUser(BuildContext context, {String? userId}) async {
+    await services.deleteUser(context, id: userId);
+  }
+
+  addUser(
+    BuildContext context,
+  ) async {
+    try {
+      if ((_emailUser.value.isValid() &&
+          _password.value.isValid() &&
+          _userName.value.isValid())) {
+        await services.addUser(context,
+            userName: _userName.value.value,
+            email: _emailUser.value.value,
+            trapIds: trapIds,
+            password: _password.value.value);
+        trapIds.clear();
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

@@ -56,11 +56,8 @@ dependencies:
   multi_select_flutter:
   syncfusion_flutter_charts: ^20.4.44
   flutter_local_notifications:
-  flutter_ringtone_player: ^3.2.0
-  retry: ^3.1.0
-  dio_cache_interceptor: ^3.3.1
-
-
+  workmanager: ^0.5.1
+  fl_chart: ^0.55.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -7,4 +7,5 @@ class AppRoute {
   static const yourTrapScreen = '/Your_Trap_Screen';
   static const usersScreen = '/Users_Screen';
   static const trapDetailsScreen = '/Trap_Details_Screen';
+  static const AddTrapScreen = '/Add_Trap_Screen';
 }

@@ -4,6 +4,7 @@ import 'package:bio_trap/enum/view_state.dart';
 import 'package:bio_trap/helper/cache_helper.dart';
 import 'package:bio_trap/model/body/trap_model.dart';
 import 'package:bio_trap/routes/app_route.dart';
+import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/view/screens/users/services/user_services.dart';
 import 'package:flutter/material.dart';
@@ -27,16 +28,8 @@ class HomeController extends BaseController {
           speed: 0.0,
           speedAccuracy: 0.0)
       .obs;
-  List<String> images = [
-    Images.listIcon,
-    Images.customerIcon,
-    Images.directionsIcon
-  ];
-  List<String> labels = [
-    "Trap Management",
-    "Users",
-    "Your Traps",
-  ];
+  final images = <String>[].obs;
+  final labels = <String>[].obs;
 
   @override
   onInit() async {
@@ -44,7 +37,21 @@ class HomeController extends BaseController {
     setState(ViewState.busy);
     await getCurrentPosition();
     traps.value = (await services.getAllTraps())!;
+    images.addAll(CacheHelper.getData(key: AppConstants.role) == "SuperAdmin"
+        ? [Images.listIcon, Images.customerIcon, Images.directionsIcon]
+        : [Images.listIcon, Images.directionsIcon]);
+    labels.assignAll(CacheHelper.getData(key: AppConstants.role) == "SuperAdmin"
+        ? [
+            "Trap Management",
+            "Users",
+            "Your Traps",
+          ]
+        : [
+            "Trap Management",
+            "Your Traps",
+          ]);
     await drawAllMarkers();
+
     setState(ViewState.idle);
   }
 
@@ -129,6 +136,8 @@ class HomeController extends BaseController {
 
   logOut() async {
     await CacheHelper.clearData();
+    await CacheHelper.removeData(key: AppConstants.role);
+
     Get.offAllNamed(AppRoute.signIn);
   }
 }

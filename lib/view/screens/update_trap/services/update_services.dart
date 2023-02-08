@@ -15,13 +15,30 @@ class UpdateServices {
       print(response.statusCode);
       print(response.data);
       if (response.statusCode == 200) {
-        
-         Utility.displaySuccessAlert("Success Updating Trap", context);
+        Utility.displaySuccessAlert("Success Updating Trap", context);
         // showCustomSnackBar(message: "Updated successfully", isError: false);
       } else {
         showCustomSnackBar(message: "Failed to update", isError: true);
       }
-    } catch (e) {      print(e);
+    } catch (e) {
+      print(e);
     }
   }
+
+  addTrap({UpdateTrapModel? model}) async {
+    try {
+      final response =
+          await dio!.post(AppConstants.addTrap, data: model!.toJson());
+      print(response.statusCode);
+      print(response.data);
+      if (response.statusCode == 200) {
+        // showCustomSnackBar(message: "Updated successfully", isError: false);
+      } else {
+        showCustomSnackBar(message: "Failed to update", isError: true);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
 }

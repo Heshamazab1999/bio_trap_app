@@ -6,6 +6,7 @@ class Images {
   static const String logoName = 'assets/image/logoname.png';
   static const String timeName = 'assets/image/time.png';
   static const String listIcon = 'assets/image/list.png';
+  static const String deleteIcon = 'assets/image/delete.png';
   static const String exitIcon = 'assets/image/exit.png';
   static const String loaderIcon = 'assets/image/loader.json';
   static const String emptyIcon = 'assets/image/empty.png';
@@ -13,6 +14,9 @@ class Images {
   static const String customerIcon = 'assets/image/customer.png';
   static const String directionsIcon = 'assets/image/directions.png';
   static const String arrowIcon = 'assets/image/arrow.png';
+  static const String moreIcon = 'assets/image/more.png';
+  static const String searchIcon = 'assets/image/search.png';
+  static const String calendarSelectIcon = 'assets/image/calendarIcon.png';
   static const String editIcon = 'assets/image/edit.png';
   static const String calendarIcon = 'assets/image/calendar.png';
   static const String clockIcon = 'assets/image/clock.png';

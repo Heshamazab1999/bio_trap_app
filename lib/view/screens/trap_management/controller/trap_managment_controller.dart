@@ -3,6 +3,7 @@ import 'package:bio_trap/model/body/trap_model.dart';
 import 'package:bio_trap/view/screens/trap_management/services/trap_management_services.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:map_launcher/map_launcher.dart';
 
@@ -23,9 +24,7 @@ class TrapManagementController extends BaseController {
 
   getTrap({int? trapId}) async {
     try {
-      loading.value = true;
       trap = await services.getTrap(id: trapId);
-      loading.value = false;
     } catch (e) {
       print(e);
     }
@@ -71,5 +70,9 @@ class TrapManagementController extends BaseController {
   Future<String?> getDeviceToken() async {
     print(await FirebaseMessaging.instance.getToken());
     return await FirebaseMessaging.instance.getToken();
+  }
+
+  deleteTrap(BuildContext context, {int? trapId}) async {
+    await services.deleteTrap(context, trapId: trapId);
   }
 }

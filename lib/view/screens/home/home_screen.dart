@@ -1,4 +1,6 @@
 import 'package:bio_trap/enum/view_state.dart';
+import 'package:bio_trap/helper/cache_helper.dart';
+import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/util/styles.dart';
@@ -35,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                       color: Theme.of(context).cardColor),
                 ),
                 SizedBox(height: Dimensions.height * 0.04),
-                ListView.builder(
+                Obx(() => ListView.builder(
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     itemCount: controller.images.length,
@@ -49,7 +51,12 @@ class HomeScreen extends StatelessWidget {
                                       traps: controller.traps,
                                     ));
                               } else if (index == 1) {
-                                Get.to(() => const UsersScreen());
+                                CacheHelper.getData(key: AppConstants.role) ==
+                                        "SuperAdmin"
+                                    ? Get.to(() => const UsersScreen())
+                                    : Get.to(() => YourTrapScreen(
+                                          traps: controller.traps,
+                                        ));
                               } else if (index == 2) {
                                 Get.to(() => YourTrapScreen(
                                       traps: controller.traps,
@@ -85,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ))
+                        )))
               ],
             ),
           ),

@@ -22,6 +22,9 @@ class NotificationService {
           importance: Importance.max,
           priority: Priority.high,
           playSound: true,
+          audioAttributesUsage: AudioAttributesUsage.alarm,
+          enableLights: true,
+          visibility: NotificationVisibility.public,
           sound: UriAndroidNotificationSound("assets/tunes/Notification.mp3"),
           icon: '@mipmap/ic_launcher');
 
@@ -45,7 +48,8 @@ class NotificationService {
     //   requestBadgePermission: true,
     //   requestSoundPermission: true,
     // );
-    InitializationSettings initializationSettings = InitializationSettings(
+    InitializationSettings initializationSettings =
+        const InitializationSettings(
       android: androidInitializationSettings,
       // iOS: iosInitializationSettings,
     );
@@ -66,13 +70,16 @@ class NotificationService {
   }
 
   Future<void> showNotification(
-      int id, String title, String body, String payload) async {
+    int id,
+    String title,
+    String body,
+  ) async {
     await flutterLocalNotificationsPlugin.show(
       id,
       title,
       body,
       notificationDetails,
-      payload: payload,
+      payload: 'Default_Sound',
     );
   }
 }

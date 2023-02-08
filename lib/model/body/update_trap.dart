@@ -2,21 +2,22 @@ import 'package:bio_trap/model/body/time_model.dart';
 
 class UpdateTrapModel {
   UpdateTrapModel({
-      this.name, 
-      this.serialNumber, 
-      // this.isWorking,
-      this.status, 
-      this.iema, 
-      this.valveQut, 
-      this.fan, 
-      this.isCounterOn, 
-      this.isCounterReadingFromSimCard, 
-      this.readingDate, 
-      this.lat, 
-      this.long, 
-      this.trapFanSchedules, 
-      this.trapValveQntSchedules, 
-      this.trapCounterSchedules,});
+    this.name,
+    this.serialNumber,
+    this.isScheduleOn,
+    this.status,
+    this.iema,
+    this.valveQut,
+    this.fan,
+    this.isCounterOn,
+    this.isCounterReadingFromSimCard,
+    this.readingDate,
+    this.lat,
+    this.long,
+    this.trapFanSchedules,
+    this.trapValveQntSchedules,
+    this.trapCounterSchedules,
+  });
 
   UpdateTrapModel.fromJson(dynamic json) {
     name = json['Name'];
@@ -50,9 +51,10 @@ class UpdateTrapModel {
       });
     }
   }
+
   String? name;
   String? serialNumber;
-  // bool? isWorking;
+  bool? isScheduleOn;
   int? status;
   int? iema;
   String? valveQut;
@@ -70,7 +72,7 @@ class UpdateTrapModel {
     final map = <String, dynamic>{};
     map['Name'] = name;
     map['SerialNumber'] = serialNumber;
-    // map['IsWorking'] = isWorking;
+    map['IsScheduleOn'] = isScheduleOn;
     map['Status'] = status;
     map['Iema'] = iema;
     map['ValveQut'] = valveQut;
@@ -81,28 +83,32 @@ class UpdateTrapModel {
     map['Lat'] = lat;
     map['Long'] = long;
     if (trapFanSchedules != null) {
-      map['TrapFanSchedules'] = trapFanSchedules?.map((v) => v.toJson()).toList();
+      map['TrapFanSchedules'] =
+          trapFanSchedules?.map((v) => v.toJson()).toList();
     }
     if (trapValveQntSchedules != null) {
-      map['TrapValveQntSchedules'] = trapValveQntSchedules?.map((v) => v.toJson()).toList();
+      map['TrapValveQntSchedules'] =
+          trapValveQntSchedules?.map((v) => v.toJson()).toList();
     }
     if (trapCounterSchedules != null) {
-      map['TrapCounterSchedules'] = trapCounterSchedules?.map((v) => v.toJson()).toList();
+      map['TrapCounterSchedules'] =
+          trapCounterSchedules?.map((v) => v.toJson()).toList();
     }
     return map;
   }
-
 }
 
 class TrapCounterSchedules {
   TrapCounterSchedules({
-      this.scdTime, 
-      this.status,});
+    this.scdTime,
+    this.status,
+  });
 
   TrapCounterSchedules.fromJson(dynamic json) {
     scdTime = json['scdTime'];
     status = json['status'];
   }
+
   int? scdTime;
   bool? status;
 
@@ -112,18 +118,19 @@ class TrapCounterSchedules {
     map['status'] = status;
     return map;
   }
-
 }
 
 class TrapValveQntSchedules {
   TrapValveQntSchedules({
-      this.scdTime, 
-      this.status,});
+    this.scdTime,
+    this.status,
+  });
 
   TrapValveQntSchedules.fromJson(dynamic json) {
     scdTime = json['scdTime'];
     status = json['status'];
   }
+
   int? scdTime;
   bool? status;
 
@@ -133,18 +140,19 @@ class TrapValveQntSchedules {
     map['status'] = status;
     return map;
   }
-
 }
 
 class TrapFanSchedules {
   TrapFanSchedules({
-      this.scdTime, 
-      this.status,});
+    this.scdTime,
+    this.status,
+  });
 
   TrapFanSchedules.fromJson(dynamic json) {
     scdTime = json['scdTime'];
     status = json['status'];
   }
+
   int? scdTime;
   bool? status;
 
@@ -154,5 +162,4 @@ class TrapFanSchedules {
     map['status'] = status;
     return map;
   }
-
 }

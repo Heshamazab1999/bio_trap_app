@@ -22,7 +22,7 @@ class NoInternetScreen extends StatelessWidget {
             Text('oops'.tr,
                 style: robotoBold.copyWith(
                   fontSize: 30,
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
                 )),
             const SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
             Text(
