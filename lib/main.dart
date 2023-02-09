@@ -109,15 +109,15 @@ Future<void> main() async {
   firebaseMessagingListener();
   Map<String, Map<String, String>> languages = await di.init();
   FirebaseMessaging.onBackgroundMessage(messageHandler);
-  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  // await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   runApp(MyApp(
     languages: languages,
   ));
-  await Workmanager().registerPeriodicTask(
-    "2",
-    "simplePeriodicTask",
-    frequency: const Duration(minutes: 15),
-  );
+  // await Workmanager().registerPeriodicTask(
+  //   "2",
+  //   "simplePeriodicTask",
+  //   frequency: const Duration(minutes: 15),
+  // );
 }
 
 void callbackDispatcher() {

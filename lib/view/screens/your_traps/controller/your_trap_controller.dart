@@ -5,29 +5,16 @@ import 'package:bio_trap/view/screens/trap_management/services/trap_management_s
 import 'package:get/get.dart';
 
 class YourTrapController extends BaseController {
-  YourTrapController({int? id}) {
-    getTrap(trapId: id);
-  }
-
   final services = TrapManagementServices();
   TrapModel? trap;
-  ReadingTrapModel? reading;
-  final loading = false.obs;
+  Readings? readings;
 
   getTrap({int? trapId}) async {
     try {
-      // loading.value = true;
       trap = await services.getTrap(id: trapId);
-      // reading = await services.getTrapReading(id: trapId);
-      // loading.value = false;
+      readings = await services.getTrapLastRead(trapId: trapId);
     } catch (e) {
       print(e);
     }
-  }
-
-  @override
-  Future<void> onInit() async {
-    // TODO: implement onInit
-    super.onInit();
   }
 }

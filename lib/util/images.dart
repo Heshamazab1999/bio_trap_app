@@ -7,6 +7,8 @@ class Images {
   static const String timeName = 'assets/image/time.png';
   static const String listIcon = 'assets/image/list.png';
   static const String deleteIcon = 'assets/image/delete.png';
+  static const String checkIcon = 'assets/image/check.png';
+  static const String crossIcon = 'assets/image/cross.png';
   static const String exitIcon = 'assets/image/exit.png';
   static const String loaderIcon = 'assets/image/loader.json';
   static const String emptyIcon = 'assets/image/empty.png';

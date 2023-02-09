@@ -19,8 +19,7 @@ class AppConstants {
   static const String addTrap = '/Traps/AddTrap';
   static const String getTrapReading = '/Traps/GetTrapReadings/';
   static const String deleteTrap = '/Traps/DeleteTrap/';
-  static const String lastReadTrap = 'Traps/GetLastReadForTrap/69';
-
+  static const String lastReadTrap = '/Traps/GetLastReadForTrap/';
 
   // Shared Key
   static const String theme = 'theme';

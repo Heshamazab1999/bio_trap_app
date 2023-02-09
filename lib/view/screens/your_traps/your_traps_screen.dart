@@ -40,15 +40,7 @@ class YourTrapScreen extends StatelessWidget {
                   width: Dimensions.width * 0.3,
                   color: Theme.of(context).cardColor),
             )),
-        body: Obx(() => controller.loading.value
-            ? Center(
-                child: Image.asset(
-                  Images.logoAnimation,
-                  color: Theme.of(context).primaryColor,
-                  width: Dimensions.width * 0.5,
-                ),
-              )
-            : ListView.builder(
+        body:  ListView.builder(
                 itemCount: traps!.length,
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
@@ -60,10 +52,10 @@ class YourTrapScreen extends StatelessWidget {
                         shadowColor: Theme.of(context).primaryColor,
                         child: ListTile(
                           onTap: () async {
-                             await controller.getTrap(trapId: traps![index].id);
+                            await controller.getTrap(trapId: traps![index].id);
                             Get.to(() => TrapDetailsScreen(
                                   trap: controller.trap,
-
+                                  readings: controller.readings,
                                 ));
                           },
                           leading: Image.asset(Images.trapIcon),
@@ -75,6 +67,6 @@ class YourTrapScreen extends StatelessWidget {
                               color: Theme.of(context).primaryColor),
                         ),
                       ),
-                    ))));
+                    )));
   }
 }

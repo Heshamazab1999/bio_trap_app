@@ -2,10 +2,12 @@ import 'dart:ui' as ui;
 import 'package:bio_trap/controller/base_controller.dart';
 import 'package:bio_trap/enum/view_state.dart';
 import 'package:bio_trap/helper/cache_helper.dart';
+import 'package:bio_trap/model/body/reading_model.dart';
 import 'package:bio_trap/model/body/trap_model.dart';
 import 'package:bio_trap/routes/app_route.dart';
 import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/images.dart';
+import 'package:bio_trap/view/screens/trap_management/services/trap_management_services.dart';
 import 'package:bio_trap/view/screens/users/services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +18,9 @@ import 'package:map_launcher/map_launcher.dart';
 
 class HomeController extends BaseController {
   final services = UserService();
+  final trapServices = TrapManagementServices();
+  TrapModel? trap;
+  Readings? readings;
   final traps = <TrapModel>[].obs;
   final markers = <Marker>{}.obs;
   final currentPosition = Position(
@@ -132,6 +137,15 @@ class HomeController extends BaseController {
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
         .buffer
         .asUint8List();
+  }
+
+  getTrap({int? trapId}) async {
+    try {
+      trap = await trapServices.getTrap(id: trapId);
+      readings = await trapServices.getTrapLastRead(trapId: trapId);
+    } catch (e) {
+      print(e);
+    }
   }
 
   logOut() async {

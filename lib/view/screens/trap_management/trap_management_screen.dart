@@ -66,7 +66,7 @@ class TrapManagementScreen extends StatelessWidget {
                             trap: controller.trap,
                           ));
                     },
-                    co2Value: double.tryParse(traps![index].valveQut!)! / 100,
+                    co2Value:0.0,
                     fanValue: double.tryParse(traps![index].fan!)! / 100,
                     lunchMap: () {
                       controller.openMapDirection(

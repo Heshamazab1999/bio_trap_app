@@ -1,44 +1,34 @@
-import 'package:bio_trap/enum/view_state.dart';
 import 'package:bio_trap/model/body/reading_model.dart';
 import 'package:bio_trap/model/body/trap_model.dart';
-import 'package:bio_trap/model/body/trap_reading_model.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/util/styles.dart';
 import 'package:bio_trap/util/utility.dart';
 import 'package:bio_trap/view/base/custom_button.dart';
-import 'package:bio_trap/view/base/custom_chart.dart';
+import 'package:bio_trap/view/base/fixed_chart.dart';
 import 'package:bio_trap/view/screens/search_trap/search_screen.dart';
 import 'package:bio_trap/view/screens/trap_details/controller/trap_details_controller.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class TrapDetailsScreen extends StatelessWidget {
   const TrapDetailsScreen({
     Key? key,
     this.trap,
+    this.readings,
   }) : super(key: key);
   final TrapModel? trap;
-
-  // final ReadingTrapModel? reading;
+  final Readings? readings;
 
   @override
   Widget build(BuildContext context) {
-    final List<ChartData> chartData = <ChartData>[
-      ChartData(2010, 10.53),
-      ChartData(2011, 9.5),
-      ChartData(2012, 10),
-      ChartData(2013, 9.4),
-      ChartData(2014, 5.8),
-      ChartData(2015, 4.9),
-      ChartData(2016, 4.5),
-      ChartData(2017, 3.6),
-      ChartData(2018, 3.43),
-    ];
+    var output = DateFormat('y-M-d');
+    var input = DateTime.parse(
+        readings == null ? "0000-00-00" : readings!.readingDate!);
+
     final controller = Get.put(TrapDetailsController(id: trap!.id));
     return Scaffold(
         backgroundColor: const Color(0xFFF9FEFE),
@@ -71,13 +61,13 @@ class TrapDetailsScreen extends StatelessWidget {
                 ],
                 centerTitle: true,
                 title: Text(
-                  trap!.name!,
+                  "Trap: ${trap!.name!} Details ",
                   style: robotoMedium.copyWith(
                       color: Theme.of(context).cardColor,
                       fontSize: Dimensions.fontSizeExtraLarge),
                 ))),
         body: Obx(
-          () => controller.state == ViewState.busy
+          () => controller.loading.value
               ? Center(
                   child: Image.asset(
                     Images.logoAnimation,
@@ -106,19 +96,20 @@ class TrapDetailsScreen extends StatelessWidget {
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Switch(
-                                      value: trap!.isCounterOn!,
-                                      onChanged: (v) {},
-                                      activeColor:
-                                          Theme.of(context).primaryColor,
-                                      inactiveThumbColor:
-                                          Theme.of(context).colorScheme.error),
+                                  Image.asset(
+                                      trap!.isCounterOn!
+                                          ? Images.checkIcon
+                                          : Images.crossIcon,
+                                      height: 25),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                   Text(
                                     trap!.isCounterOn! ? "ON" : "OFF",
                                     style: robotoMedium.copyWith(
                                         fontSize: Dimensions.fontSizeLarge,
                                         color: trap!.isCounterOn!
-                                            ? Theme.of(context).primaryColor
+                                            ? Colors.green
                                             : Theme.of(context)
                                                 .colorScheme
                                                 .error),
@@ -146,14 +137,10 @@ class TrapDetailsScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        trap!.readingDate == null
-                                            ? "00-00-00"
-                                            : trap!.readingDate!
-                                                .split("/")
-                                                .first,
-                                        // trap!.readingDate!.split("/").first??"00-00-00",
+                                        output.format(input),
                                         style: robotoMedium.copyWith(
-                                            fontSize: Dimensions.fontSizeLarge),
+                                            fontSize:
+                                                Dimensions.fontSizeDefault),
                                       ),
                                       SizedBox(width: Dimensions.width * 0.01),
                                       Image.asset(
@@ -186,14 +173,11 @@ class TrapDetailsScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        trap!.readingDate == null
-                                            ? "00-00-00"
-                                            : trap!.readingDate!
-                                                .split("/")
-                                                .last,
-                                        // trap!.readingDate!.split("/").first??"00-00-00",
+                                        readings == null
+                                            ? "00:00"
+                                            : readings!.readingTime!,
                                         style: robotoMedium.copyWith(
-                                            fontSize: Dimensions.fontSizeLarge),
+                                            fontSize: Dimensions.fontSizeSmall),
                                       ),
                                       SizedBox(width: Dimensions.width * 0.01),
                                       Image.asset(
@@ -214,7 +198,7 @@ class TrapDetailsScreen extends StatelessWidget {
                             elevation: 1,
                             shadowColor: Theme.of(context).primaryColor,
                             child: ListTile(
-                              title: Text("Co2 Valve : ",
+                              title: Text("Co2 Cylinder : ",
                                   style: robotoMedium.copyWith(
                                       color: Theme.of(context).primaryColor,
                                       fontSize: Dimensions.fontSizeLarge)),
@@ -230,9 +214,8 @@ class TrapDetailsScreen extends StatelessWidget {
                                     ],
                                     begin: Alignment.topRight,
                                     end: Alignment.topLeft),
-                                percent: (double.tryParse(trap!.fan!)! / 100),
-                                center: Text(
-                                    "${(double.tryParse(trap!.fan!)! / 100)}%",
+                                percent: 0.0,
+                                center: Text("0.0%",
                                     style: robotoMedium.copyWith(
                                       fontSize: Dimensions.fontSizeExtraSmall,
                                     )),
@@ -262,10 +245,9 @@ class TrapDetailsScreen extends StatelessWidget {
                                     begin: Alignment.topRight,
                                     end: Alignment.topLeft),
                                 lineWidth: 2.0,
-                                percent:
-                                    double.tryParse(trap!.valveQut!)! / 100,
+                                percent: double.parse(trap!.valveQut!) / 100,
                                 center: Text(
-                                    "${double.tryParse(trap!.valveQut!)! / 100}%",
+                                    "${double.parse(trap!.valveQut!) / 100}%",
                                     style: robotoMedium.copyWith(
                                       fontSize: Dimensions.fontSizeExtraSmall,
                                     )),
@@ -466,7 +448,8 @@ class TrapDetailsScreen extends StatelessWidget {
                             border: Border.all(
                                 color: Theme.of(context).primaryColor)),
                         child: GoogleMap(
-                          zoomControlsEnabled: false,
+                          zoomControlsEnabled: true,
+                          zoomGesturesEnabled: true,
                           initialCameraPosition: CameraPosition(
                               target: LatLng(trap!.lat!, trap!.long!),
                               zoom: 10),
@@ -485,57 +468,110 @@ class TrapDetailsScreen extends StatelessWidget {
                         endIndent: 40,
                         indent: 40,
                       ),
-                      Container(
-                          child: SfCartesianChart(
-                        onLegendItemRender: (LegendRenderArgs args) {
-
-                          args.text = "ttttt";
-                        },
-                        legend: Legend(
-                          isVisible: true,
-
-                          // Overflowing legend content will be wraped
-                        ),
-                        primaryXAxis: NumericAxis(
-                            decimalPlaces: 5, anchorRangeToVisiblePoints: true),
-                        primaryYAxis: NumericAxis(
-                            decimalPlaces: 4,
-                            rangePadding: ChartRangePadding.none),
-                        series: <ChartSeries<Readings, double>>[
-                          LineSeries<Readings, double>(
-                              markerSettings: MarkerSettings(isVisible: true),
-                              color: Colors.amber,
-                              dataSource: controller.reading!.readings!,
-                              xValueMapper: (Readings data, _) => double.parse(
-                                  data.readingTime!.replaceAll(":", ".")),
-                              yValueMapper: (Readings data, _) =>
-                                  double.parse(data.readingsmall!)),
-                          LineSeries<Readings, double>(
-                              markerSettings: MarkerSettings(isVisible: true),
-                              color: Colors.red,
-                              dataSource: controller.reading!.readings!,
-                              xValueMapper: (Readings data, _) => double.parse(
-                                  data.readingTime!.replaceAll(":", ".")),
-                              yValueMapper: (Readings data, _) =>
-                                  double.parse(data.readingLarg!)),
-                          LineSeries<Readings, double>(
-                              markerSettings: MarkerSettings(isVisible: true),
-                              color: Colors.green,
-                              dataSource: controller.reading!.readings!,
-                              xValueMapper: (Readings data, _) => double.parse(
-                                  data.readingTime!.replaceAll(":", ".")),
-                              yValueMapper: (Readings data, _) =>
-                                  double.parse(data.readingMosuqitoes!)),
-                          LineSeries<Readings, double>(
-                              markerSettings: MarkerSettings(isVisible: true),
-                              color: Colors.blue,
-                              dataSource: controller.reading!.readings!,
-                              xValueMapper: (Readings data, _) => double.parse(
-                                  data.readingTime!.replaceAll(":", ".")),
-                              yValueMapper: (Readings data, _) =>
-                                  double.parse(data.readingFly!)),
-                        ],
-                      )),
+                      FixedChart(dataSource: [
+                        Readings(
+                          readingWindSpeed: "0.0",
+                          readingDate: "0:0",
+                          readingHumidty: "0.0",
+                          readingTempOut: "0.0",
+                          readingTempIn: "0.0",
+                          readingLarg: readings == null
+                              ? "0.0"
+                              : readings!.readingLarg ?? "0.0",
+                          readingFly: readings == null
+                              ? "0.0"
+                              : readings!.readingFly ?? "0.0",
+                          readingTime: readings == null
+                              ? "0.0"
+                              : readings!.readingTime ?? "0:0",
+                          readingsmall: readings == null
+                              ? "0.0"
+                              : readings!.readingsmall ?? "0.0",
+                          readingMosuqitoes: readings == null
+                              ? "0.0"
+                              : readings!.readingMosuqitoes ?? "0.0",
+                        )
+                      ])
+                      // SfCartesianChart(
+                      //   onLegendItemRender: (LegendRenderArgs args) {
+                      // print(args.seriesIndex);
+                      // switch (args.seriesIndex) {
+                      //   case 0:
+                      //     args.text = "Small";
+                      //     args.color = Colors.blue;
+                      //     args.legendIconType = LegendIconType.rectangle;
+                      //     break;
+                      //   case 1:
+                      //     args.text = "Large";
+                      //     args.color = Colors.blue[300];
+                      //     args.legendIconType = LegendIconType.rectangle;
+                      //     break;
+                      //   case 2:
+                      //     args.text = "Mosuqitoes";
+                      //     args.color = Colors.green;
+                      //     args.legendIconType = LegendIconType.rectangle;
+                      //     break;
+                      //   case 3:
+                      //     args.text = "Fly";
+                      //     args.color = Colors.amber;
+                      //     args.legendIconType = LegendIconType.rectangle;
+                      //     break;
+                      // }
+                      //   },
+                      //   legend: Legend(
+                      // isVisible: true,
+                      //   position: LegendPosition.top
+                      // // Overflowing legend content will be wraped
+                      //   ),
+                      //   primaryXAxis: NumericAxis(
+                      // interval:2,
+                      // minimum: 0.0,
+                      // maximum: 23.0,
+                      // enableAutoIntervalOnZooming: true,
+                      // visibleMinimum: 0.0
+                      //   ),
+                      //   primaryYAxis: NumericAxis(
+                      // decimalPlaces: 1,
+                      //   ),
+                      //   series: <ChartSeries<Readings, double>>[
+                      // LineSeries<Readings, double>(
+                      //     markerSettings:
+                      //         const MarkerSettings(isVisible: true),
+                      //     color: Colors.blue,
+                      //     dataSource: controller.reading!.readings!,
+                      //     xValueMapper: (Readings data, _) => double.parse(
+                      //         data.readingTime!.replaceAll(":", ".")),
+                      //     yValueMapper: (Readings data, _) =>
+                      //         double.parse(data.readingsmall!)),
+                      // LineSeries<Readings, double>(
+                      //     markerSettings:
+                      //         const MarkerSettings(isVisible: true),
+                      //     color: Colors.blue[300],
+                      //     dataSource: controller.reading!.readings!,
+                      //     xValueMapper: (Readings data, _) => double.parse(
+                      //         data.readingTime!.replaceAll(":", ".")),
+                      //     yValueMapper: (Readings data, _) =>
+                      //         double.parse(data.readingLarg!)),
+                      // LineSeries<Readings, double>(
+                      //     markerSettings:
+                      //         const MarkerSettings(isVisible: true),
+                      //     color: Colors.green,
+                      //     dataSource: controller.reading!.readings!,
+                      //     xValueMapper: (Readings data, _) => double.parse(
+                      //         data.readingTime!.replaceAll(":", ".")),
+                      //     yValueMapper: (Readings data, _) =>
+                      //         double.parse(data.readingMosuqitoes!)),
+                      // LineSeries<Readings, double>(
+                      //     markerSettings:
+                      //         const MarkerSettings(isVisible: true),
+                      //     color: Colors.amber,
+                      //     dataSource: controller.reading!.readings!,
+                      //     xValueMapper: (Readings data, _) => double.parse(
+                      //         data.readingTime!.replaceAll(":", ".")),
+                      //     yValueMapper: (Readings data, _) =>
+                      //         double.parse(data.readingFly!)),
+                      //   ],
+                      // ),
                       // SfCartesianChart(
                       //     title: ChartTitle(
                       //         text: "gggg",
