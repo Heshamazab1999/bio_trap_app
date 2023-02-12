@@ -14,6 +14,13 @@ class SearchController extends BaseController {
   final startDate = "".obs;
   final endDate = "".obs;
   final load = false.obs;
+  final readingList = <ReadingsModel>[].obs;
+
+  @override
+  onInit() {
+    super.onInit();
+    readingList.clear();
+  }
 
   Future<DateTime?> showCalender({required BuildContext context}) async =>
       await showDatePicker(
@@ -27,13 +34,23 @@ class SearchController extends BaseController {
 
   getTrapReading({int? id}) async {
     try {
+      readingList.clear();
       load.value = true;
       reading = await services.getTrapReadingBySearch(
           id: id, endDate: endDate.value, startDate: startDate.value);
-      print(reading!.readings!.length);
+      reading?.readings?.forEach((element) {
+        readingList.add(element);
+      });
       load.value = false;
     } catch (e) {
       load.value = false;
     }
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    readingList.clear();
   }
 }

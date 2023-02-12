@@ -44,7 +44,8 @@ class FixedChart extends StatelessWidget {
             break;
         }
       },
-      legend: Legend(isVisible: true, position: LegendPosition.top),
+      legend: Legend(isVisible: true, position: LegendPosition.top,
+      overflowMode: LegendItemOverflowMode.wrap),
       primaryXAxis: NumericAxis(
           interval: 2,
           minimum: 0.0,

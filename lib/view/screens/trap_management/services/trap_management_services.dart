@@ -31,7 +31,7 @@ class TrapManagementServices {
       // final response = await dio!.get(
       //     "${AppConstants.getTrapReading}$id?startDate=$startDate&endDate=$endDate");
       final response = await dio!.get(
-          "/Traps/GetTrapReadingsGroupedByDayNew/69?startDate=$startDate&endDate=$endDate&id=69");
+          "/Traps/GetTrapReadingsGroupedByDayNew/$id?startDate=$startDate&endDate=$endDate");
 
       print(response.statusCode);
       if (response.statusCode == 200) {
