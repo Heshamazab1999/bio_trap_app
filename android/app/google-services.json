@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "21849346219",
-    "project_id": "biotrap-66d40",
-    "storage_bucket": "biotrap-66d40.appspot.com"
+    "project_number": "914749276576",
+    "firebase_url": "https://trapspro-64299-default-rtdb.firebaseio.com",
+    "project_id": "trapspro-64299",
+    "storage_bucket": "trapspro-64299.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:21849346219:android:4ae82384adcf093d2c27ee",
+        "mobilesdk_app_id": "1:914749276576:android:54d5512f12a2b06233a4c5",
         "android_client_info": {
           "package_name": "com.example.bio_trap_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "21849346219-udfq9dd6e8j8ugi1qhi6qdgolac7vtkf.apps.googleusercontent.com",
+          "client_id": "914749276576-jo4t3lvu10h21n2nnjitqj65tkib6n7s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBjsYFErQb6aqivs1OWRRy8wUgroEj_1pU"
+          "current_key": "AIzaSyCPI-XjqZtVL6xWMOuK3X0hVHVcCYYdXAk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "21849346219-udfq9dd6e8j8ugi1qhi6qdgolac7vtkf.apps.googleusercontent.com",
+              "client_id": "914749276576-jo4t3lvu10h21n2nnjitqj65tkib6n7s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

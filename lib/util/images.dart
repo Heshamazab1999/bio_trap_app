@@ -9,6 +9,8 @@ class Images {
   static const String deleteIcon = 'assets/image/delete.png';
   static const String checkIcon = 'assets/image/check.png';
   static const String crossIcon = 'assets/image/cross.png';
+  static const String alarmIcon = 'assets/image/alarm.png';
+  static const String noAlarmIcon = 'assets/image/no-alarm.png';
   static const String exitIcon = 'assets/image/exit.png';
   static const String loaderIcon = 'assets/image/loader.json';
   static const String emptyIcon = 'assets/image/empty.png';

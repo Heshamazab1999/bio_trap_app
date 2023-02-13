@@ -1,5 +1,6 @@
 import 'package:bio_trap/enum/view_state.dart';
 import 'package:bio_trap/model/body/trap_model.dart';
+import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/util/styles.dart';
@@ -63,7 +64,7 @@ class UpdateTrapScreen extends StatelessWidget {
                         SizedBox(
                           height: Dimensions.height * 0.02,
                         ),
-                        Obx(() => controller.role.value == "SuperAdmin"
+                        Obx(() => controller.role.value == AppConstants.superAdmin
                             ? FixedTextField(
                                 controller:
                                     controller.textEditingControllerName,
@@ -84,7 +85,7 @@ class UpdateTrapScreen extends StatelessWidget {
                         SizedBox(
                           height: Dimensions.height * 0.03,
                         ),
-                        Obx(() => controller.role.value == "SuperAdmin"
+                        Obx(() => controller.role.value == AppConstants.superAdmin
                             ? FixedTextField(
                                 controller:
                                     controller.textEditingControllerSerial,
@@ -100,7 +101,7 @@ class UpdateTrapScreen extends StatelessWidget {
                         SizedBox(
                           height: Dimensions.height * 0.03,
                         ),
-                        Obx(() => controller.role.value == "SuperAdmin"
+                        Obx(() => controller.role.value == AppConstants.superAdmin
                             ? FixedTextField(
                                 controller:
                                     controller.textEditingControllerLema,

@@ -40,33 +40,35 @@ class YourTrapScreen extends StatelessWidget {
                   width: Dimensions.width * 0.3,
                   color: Theme.of(context).cardColor),
             )),
-        body:  ListView.builder(
-                itemCount: traps!.length,
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (_, index) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      child: Material(
-                        elevation: 1,
-                        shadowColor: Theme.of(context).primaryColor,
-                        child: ListTile(
-                          onTap: () async {
-                            await controller.getTrap(trapId: traps![index].id);
-                            Get.to(() => TrapDetailsScreen(
+        body: ListView.builder(
+            itemCount: traps!.length,
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (_, index) => Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Material(
+                    elevation: 1,
+                    shadowColor: Theme.of(context).primaryColor,
+                    child: ListTile(
+                      onTap: () async {
+                        await controller.getTrap(trapId: traps![index].id);
+                        Get.to(
+                            () => TrapDetailsScreen(
                                   trap: controller.trap,
                                   readings: controller.readings,
-                                ));
-                          },
-                          leading: Image.asset(Images.trapIcon),
-                          title: Text(traps![index].name!,
-                              style: robotoMedium.copyWith(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: Dimensions.fontSizeLarge)),
-                          trailing: Icon(Icons.arrow_forward_ios,
-                              color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                    )));
+                                ),
+                            transition: Transition.leftToRight);
+                      },
+                      leading: Image.asset(Images.trapIcon),
+                      title: Text(traps![index].name!,
+                          style: robotoMedium.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: Dimensions.fontSizeLarge)),
+                      trailing: Icon(Icons.arrow_forward_ios,
+                          color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                )));
   }
 }

@@ -2,6 +2,7 @@ import 'package:bio_trap/controller/base_controller.dart';
 import 'package:bio_trap/model/body/valid_model.dart';
 import 'package:bio_trap/view/base/custom_snackbar.dart';
 import 'package:bio_trap/view/screens/auth/services/auth_services.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 
 class SignInController extends BaseController {
@@ -38,7 +39,9 @@ class SignInController extends BaseController {
       if ((_password.value.isValid() && _email.value.isValid())) {
         _loading.value = true;
         await services.signIn(
-            email: _email.value.value, password: _password.value.value);
+            email: _email.value.value,
+            password: _password.value.value,
+            deviceId: await getDeviceToken());
         _loading.value = false;
       } else {
         _loading.value = false;
@@ -49,5 +52,10 @@ class SignInController extends BaseController {
     } catch (e) {
       _loading.value = false;
     }
+  }
+
+  Future<String?> getDeviceToken() async {
+    print(await FirebaseMessaging.instance.getToken());
+    return await FirebaseMessaging.instance.getToken();
   }
 }

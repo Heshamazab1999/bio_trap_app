@@ -9,10 +9,11 @@ import 'package:get/get.dart';
 class AuthServices {
   final dio = DioUtilNew.dio;
 
-  signIn({String? email, String? password}) async {
+  signIn({String? email, String? password,String?deviceId}) async {
     try {
       final response = await dio!.post(AppConstants.login,
-          data: {"Email": email, "Password": password});
+          data: {"Email": email, "Password": password,"DeviceId":deviceId});
+      print(deviceId);
       print(response.statusCode);
       print(response.data);
       if (response.statusCode == 200) {

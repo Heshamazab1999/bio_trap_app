@@ -1,4 +1,5 @@
 import 'package:bio_trap/helper/dio_integration.dart';
+import 'package:bio_trap/model/body/notification_model.dart';
 import 'package:bio_trap/model/body/trap_model.dart';
 import 'package:bio_trap/model/body/users_model.dart';
 import 'package:bio_trap/util/app_constants.dart';
@@ -130,6 +131,20 @@ class UserService {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<List<NotificationModel>?> getNotifications() async {
+    try {
+      final response = await dio!.get(AppConstants.getAllNotification);
+      if (response.statusCode == 200) {
+        final list = List<NotificationModel>.from(
+            response.data.map((i) => NotificationModel.fromJson(i)));
+        return list;
+      }
+      return null;
+    } catch (e) {
+      return null;
     }
   }
 }

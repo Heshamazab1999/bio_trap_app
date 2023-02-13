@@ -4,9 +4,10 @@ import '../model/response/language_model.dart';
 
 class AppConstants {
   static const String appName = 'Bio Trap';
-  static const double appVersion = 5.6;
 
-  static const String baseUrl = 'https://apps.sa-counter.com/api';
+  static const String baseUrl = 'https://192.168.1.22:44357/api';
+
+  // static const String baseUrl = 'https://apps.sa-counter.com/api';
   static const String login = '/Account/Login';
   static const String getAllUser = '/Account/GetAllUsers';
   static const String getAllTraps = '/Traps/GetAllTraps';
@@ -20,29 +21,45 @@ class AppConstants {
   static const String getTrapReading = '/Traps/GetTrapReadings/';
   static const String deleteTrap = '/Traps/DeleteTrap/';
   static const String lastReadTrap = '/Traps/GetLastReadForTrap/';
+  static const String searchTrap = '/Traps/GetTrapReadingsGroupedByDayNew/';
+  static const String getAllNotification = '/GetAllCurrentUserNotifications';
 
   // Shared Key
   static const String theme = 'theme';
   static const String expireOn = 'expireOn';
   static const String role = 'role';
+  static const String length = 'length';
   static const String token = 'multivendor_token';
-  static const String COUNTRY_CODE = 'country_code';
-  static const String LANGUAGE_CODE = 'language_code';
-  static const String CART_LIST = 'cart_list';
-  static const String USER_PASSWORD = 'user_password';
-  static const String USER_ADDRESS = 'user_address';
-  static const String USER_NUMBER = 'user_number';
-  static const String USER_COUNTRY_CODE = 'user_country_code';
-  static const String NOTIFICATION = 'notification';
-  static const String SEARCH_HISTORY = 'search_history';
-  static const String INTRO = 'intro';
-  static const String NOTIFICATION_COUNT = 'notification_count';
-  static const String TOPIC = 'all_zone_customer';
-  static const String ZONE_ID = 'zoneId';
-  static const String LOCALIZATION_KEY = 'X-localization';
-
-  // Delivery Tips
-  static List<int> tips = [0, 5, 10, 15, 20, 30, 50];
+  static const String countryCode = 'country_code';
+  static const String superAdmin = 'SuperAdmin';
+  static const String languageCode = 'language_code';
+  static const String counterFan = "Counter Fan";
+  static const String scheduleCounter = "Schedule Counter";
+  static const String valveQut = "Valve Qut :";
+  static const String working = "Working";
+  static const String oN = "ON";
+  static const String off = "OFF";
+  static const String lastReadingDate = "Last Reading Date :";
+  static const String lastReadingTime = "Last Reading Time :";
+  static const String time = "00:00";
+  static const String co2 = "Co2 Cylinder : ";
+  static const String fixedPercent = "0.0%";
+  static const String scheduleFan = "Schedule Fan";
+  static const String scheduleValQut = "Schedule Val Qut";
+  static const String fixedDouble = "0.0";
+  static const String fixedDate = "0:0";
+  static const String trap = "Trap:";
+  static const String details = "Details";
+  static const String email = "Email";
+  static const String userName = "UserName";
+  static const String password = "Password";
+  static const String traps = "Traps";
+  static const String name = "Name";
+  static const String noFoundUsers = "No Found Users";
+  static const String oldPassword = "Old Password";
+  static const String newPassword = "New Password";
+  static const String confirmPassword = "Confirm Password";
+  static const String noFoundNotifications = "No Found Notifications";
 
   static List<LanguageModel> languages = [
     LanguageModel(

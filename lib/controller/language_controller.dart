@@ -48,9 +48,9 @@ class LocalizationController extends BaseController {
 
   void loadCurrentLanguage() async {
     _locale = Locale(
-        CacheHelper.getData(key: AppConstants.LANGUAGE_CODE) ??
+        CacheHelper.getData(key: AppConstants.languageCode) ??
             AppConstants.languages[0].languageCode!,
-        CacheHelper.getData(key: AppConstants.COUNTRY_CODE) ??
+        CacheHelper.getData(key: AppConstants.countryCode) ??
             AppConstants.languages[0].countryCode);
     _isLtr = _locale.languageCode != 'ar';
     for (int index = 0; index < AppConstants.languages.length; index++) {
@@ -66,9 +66,9 @@ class LocalizationController extends BaseController {
 
   void saveLanguage(Locale locale) async {
     CacheHelper.saveData(
-        key: AppConstants.LANGUAGE_CODE, value: locale.languageCode);
+        key: AppConstants.languageCode, value: locale.languageCode);
     CacheHelper.saveData(
-        key: AppConstants.COUNTRY_CODE, value: locale.countryCode!);
+        key: AppConstants.countryCode, value: locale.countryCode!);
   }
 
   int _selectedIndex = 0;

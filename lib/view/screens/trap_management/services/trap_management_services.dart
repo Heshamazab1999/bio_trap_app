@@ -28,10 +28,8 @@ class TrapManagementServices {
 
   getTrapReadingBySearch({int? id, String? startDate, String? endDate}) async {
     try {
-      // final response = await dio!.get(
-      //     "${AppConstants.getTrapReading}$id?startDate=$startDate&endDate=$endDate");
       final response = await dio!.get(
-          "/Traps/GetTrapReadingsGroupedByDayNew/$id?startDate=$startDate&endDate=$endDate");
+          "${AppConstants.searchTrap}$id?startDate=$startDate&endDate=$endDate");
 
       print(response.statusCode);
       if (response.statusCode == 200) {
@@ -46,25 +44,6 @@ class TrapManagementServices {
     }
   }
 
-  getTrapReading({int? id, String? startDate}) async {
-    try {
-      final response = await dio!
-          .get("${AppConstants.getTrapReading}$id?startDate=$startDate");
-      print(response.data);
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        print(response.data);
-        ReadingTrapModel trap = ReadingTrapModel.fromJson(response.data);
-        return trap;
-      } else if (response.statusCode == 400) {
-      } else {
-        showCustomSnackBar(
-            message: "Error Getting Trap Reading", isError: true);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
 
   deleteTrap(BuildContext context, {int? trapId}) async {
     try {

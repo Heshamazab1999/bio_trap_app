@@ -1,11 +1,24 @@
 class NotificationModel {
-  String? title;
-  String? message;
+  NotificationModel({
+      this.changedDistance, 
+      this.trapName, 
+      this.dateTime,});
 
-  NotificationModel({this.title, this.message});
-
-  NotificationModel.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    message = json['message'];
+  NotificationModel.fromJson(dynamic json) {
+    changedDistance = json['changedDistance'];
+    trapName = json['trapName'];
+    dateTime = json['dateTime'];
   }
+  double? changedDistance;
+  String? trapName;
+  String? dateTime;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['changedDistance'] = changedDistance;
+    map['trapName'] = trapName;
+    map['dateTime'] = dateTime;
+    return map;
+  }
+
 }

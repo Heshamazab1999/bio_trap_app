@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:bio_trap/controller/base_controller.dart';
 import 'package:bio_trap/enum/view_state.dart';
 import 'package:bio_trap/helper/cache_helper.dart';
+import 'package:bio_trap/model/body/notification_model.dart';
 import 'package:bio_trap/model/body/reading_model.dart';
 import 'package:bio_trap/model/body/trap_model.dart';
 import 'package:bio_trap/routes/app_route.dart';
@@ -21,6 +22,8 @@ class HomeController extends BaseController {
   final trapServices = TrapManagementServices();
   TrapModel? trap;
   Readings? readings;
+  final counter = 0.obs;
+  final notificationList = <NotificationModel>[].obs;
   final traps = <TrapModel>[].obs;
   final markers = <Marker>{}.obs;
   final currentPosition = Position(
@@ -42,19 +45,25 @@ class HomeController extends BaseController {
     setState(ViewState.busy);
     await getCurrentPosition();
     traps.value = (await services.getAllTraps())!;
-    images.addAll(CacheHelper.getData(key: AppConstants.role) == "SuperAdmin"
-        ? [Images.listIcon, Images.customerIcon, Images.directionsIcon]
-        : [Images.listIcon, Images.directionsIcon]);
-    labels.assignAll(CacheHelper.getData(key: AppConstants.role) == "SuperAdmin"
-        ? [
-            "Trap Management",
-            "Users",
-            "Your Traps",
-          ]
-        : [
-            "Trap Management",
-            "Your Traps",
-          ]);
+    notificationList.value = (await services.getNotifications())!;
+    counter.value = notificationList.length;
+    CacheHelper.saveData(
+        key: AppConstants.length, value: notificationList.length);
+    images.addAll(
+        CacheHelper.getData(key: AppConstants.role) == AppConstants.superAdmin
+            ? [Images.listIcon, Images.customerIcon, Images.directionsIcon]
+            : [Images.listIcon, Images.directionsIcon]);
+    labels.assignAll(
+        CacheHelper.getData(key: AppConstants.role) == AppConstants.superAdmin
+            ? [
+                "Trap Management",
+                "Users",
+                "Your Traps",
+              ]
+            : [
+                "Trap Management",
+                "Your Traps",
+              ]);
     await drawAllMarkers();
 
     setState(ViewState.idle);
@@ -151,7 +160,6 @@ class HomeController extends BaseController {
   logOut() async {
     await CacheHelper.clearData();
     await CacheHelper.removeData(key: AppConstants.role);
-
     Get.offAllNamed(AppRoute.signIn);
   }
 }

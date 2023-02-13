@@ -5,7 +5,10 @@ import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
 import 'package:bio_trap/util/styles.dart';
 import 'package:bio_trap/util/utility.dart';
+import 'package:bio_trap/view/base/custom_card_trap.dart';
+import 'package:bio_trap/view/base/custom_drawer_card.dart';
 import 'package:bio_trap/view/screens/home/controller/home_controller.dart';
+import 'package:bio_trap/view/screens/notification/notification_screen.dart';
 import 'package:bio_trap/view/screens/trap_details/trap_details_screen.dart';
 import 'package:bio_trap/view/screens/trap_management/trap_management_screen.dart';
 import 'package:bio_trap/view/screens/users/users_screen.dart';
@@ -13,7 +16,7 @@ import 'package:bio_trap/view/screens/your_traps/your_traps_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -43,57 +46,34 @@ class HomeScreen extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
                     itemCount: controller.images.length,
-                    itemBuilder: (_, index) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              if (index == 0) {
-                                Get.to(() => TrapManagementScreen(
-                                      traps: controller.traps,
-                                    ));
-                              } else if (index == 1) {
-                                CacheHelper.getData(key: AppConstants.role) ==
-                                        "SuperAdmin"
-                                    ? Get.to(() => const UsersScreen())
-                                    : Get.to(() => YourTrapScreen(
-                                          traps: controller.traps,
-                                        ));
-                              } else if (index == 2) {
-                                Get.to(() => YourTrapScreen(
-                                      traps: controller.traps,
-                                    ));
-                              }
-                            },
-                            child: Container(
-                              height: Dimensions.height * 0.05,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Theme.of(context).cardColor),
-                                  borderRadius: const BorderRadius.only(
-                                      bottomRight: Radius.circular(
-                                          Dimensions.RADIUS_SMALL),
-                                      topRight: Radius.circular(
-                                          Dimensions.RADIUS_SMALL))),
-                              child: Row(
-                                children: [
-                                  const SizedBox(width: 10),
-                                  Image.asset(
-                                    controller.images[index],
-                                    color: Theme.of(context).cardColor,
-                                    width: Dimensions.width * 0.06,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    controller.labels[index],
-                                    style: robotoMedium.copyWith(
-                                        color: Theme.of(context).cardColor,
-                                        fontSize: Dimensions.fontSizeDefault),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+                    itemBuilder: (_, index) => CustomDrawerCard(
+                          onTap: () {
+                            if (index == 0) {
+                              Get.to(
+                                  () => TrapManagementScreen(
+                                        traps: controller.traps,
+                                      ),
+                                  transition: Transition.leftToRight);
+                            } else if (index == 1) {
+                              CacheHelper.getData(key: AppConstants.role) ==
+                                      AppConstants.superAdmin
+                                  ? Get.to(() => const UsersScreen(),
+                                      transition: Transition.leftToRight)
+                                  : Get.to(
+                                      () => YourTrapScreen(
+                                            traps: controller.traps,
+                                          ),
+                                      transition: Transition.leftToRight);
+                            } else if (index == 2) {
+                              Get.to(
+                                  () => YourTrapScreen(
+                                        traps: controller.traps,
+                                      ),
+                                  transition: Transition.leftToRight);
+                            }
+                          },
+                          images: controller.images[index],
+                          labels: controller.labels[index],
                         )))
               ],
             ),
@@ -116,6 +96,56 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               actions: [
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Dimensions.PADDING_SIZE_SMALL,
+                        vertical: Dimensions.PADDING_SIZE_SMALL),
+                    child: Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        const Icon(Icons.notifications,
+                            size: Dimensions.PADDING_SIZE_OVER_Extra),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => NotificationScreen(
+                                  notifications: controller.notificationList,
+                                ));
+                          },
+                          child: Container(
+                            height: Dimensions.RADIUS_EXTRA_LARGE,
+                            width: Dimensions.RADIUS_EXTRA_LARGE,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).secondaryHeaderColor,
+                                shape: BoxShape.circle),
+                            child: const Center(child: Text("20")),
+                          ),
+                        )
+                      ],
+                    )
+                    // Obx(
+                    //   () => badges.Badge(
+                    //
+                    //     onTap: () {
+                    //       Get.to(() => NotificationScreen(
+                    //             notifications: controller.notificationList,
+                    //           ));
+                    //       controller.counter.value = 0;
+                    //     },
+                    //     badgeStyle: badges.BadgeStyle(
+                    //         badgeColor: Theme.of(context).secondaryHeaderColor),
+                    //     showBadge:
+                    //         controller.counter.value.isEqual(0) ? false : true,
+                    //     badgeContent: Text(
+                    //       "${controller.counter}",
+                    //       style: robotoMedium.copyWith(
+                    //           color: Theme.of(context).cardColor,
+                    //           fontSize: Dimensions.fontSizeDefault),
+                    //     ),
+                    //     child: const Icon(Icons.notifications,
+                    //         size: Dimensions.PADDING_SIZE_OVER_LARGE),
+                    //   ),
+                    // )
+                    ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: GestureDetector(
@@ -171,258 +201,27 @@ class HomeScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (_, index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
+                              padding: const EdgeInsets.all(2),
+                              child: CustomCardTrap(
                                 onTap: () async {
                                   await controller.getTrap(
                                       trapId: controller.traps[index].id);
-                                  Get.to(() => TrapDetailsScreen(
-                                        trap: controller.trap,
-                                        readings: controller.readings,
-                                      ));
-                                },
-                                child: Card(
-                                  elevation: 2,
-                                  shadowColor: Theme.of(context).primaryColor,
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: Dimensions.width * 0.2,
-                                          height: Dimensions.width * 0.2,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions
-                                                          .RADIUS_DEFAULT),
-                                              border: Border.all(
-                                                  color: Theme.of(context)
-                                                      .primaryColor)),
-                                          child: Center(
-                                            child: SizedBox(
-                                              height: Dimensions.width * 0.15,
-                                              width: Dimensions.width * 0.15,
-                                              child:
-                                                  Image.asset(Images.trapIcon),
-                                            ),
+                                  Get.to(
+                                      () => TrapDetailsScreen(
+                                            trap: controller.trap,
+                                            readings: controller.readings,
                                           ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: Dimensions.width * 0.02,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: Dimensions.height * 0.01,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(controller
-                                                    .traps[index].name!),
-                                                SizedBox(
-                                                  width: Dimensions.width * 0.1,
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Image.asset(
-                                                        controller.traps[index]
-                                                                .isCounterOn!
-                                                            ? Images.checkIcon
-                                                            : Images.crossIcon,
-                                                        height: 25),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      controller.traps[index]
-                                                              .isCounterOn!
-                                                          ? "ON"
-                                                          : "OFF",
-                                                      style: robotoMedium.copyWith(
-                                                          fontSize: Dimensions
-                                                              .fontSizeLarge,
-                                                          color: controller
-                                                                  .traps[index]
-                                                                  .isCounterOn!
-                                                              ? Colors.green
-                                                              : Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .error),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: Dimensions.height * 0.01,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text("Fan : ",
-                                                        style: robotoMedium.copyWith(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                            fontSize: Dimensions
-                                                                .fontSizeLarge)),
-                                                    CircularPercentIndicator(
-                                                      radius: 20,
-                                                      animation: true,
-                                                      lineWidth: 2.0,
-                                                      linearGradient:
-                                                          const LinearGradient(
-                                                              colors: [
-                                                            Color(0xFFFFA900),
-                                                            Color(0xFFFF7600),
-                                                            Color(0xFFCD113B),
-                                                          ],
-                                                              begin: Alignment
-                                                                  .topRight,
-                                                              end: Alignment
-                                                                  .topLeft),
-                                                      percent: double.parse(
-                                                              controller
-                                                                      .traps[
-                                                                          index]
-                                                                      .fan ??
-                                                                  "0.0") /
-                                                          100,
-                                                      center: Text(
-                                                          "${double.parse(controller.traps[index].fan ?? "0.0") / 100}%",
-                                                          style: robotoMedium
-                                                              .copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeExtraSmall,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  width: Dimensions.width * 0.1,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text("Valve Qut : ",
-                                                        style: robotoMedium.copyWith(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                            fontSize: Dimensions
-                                                                .fontSizeLarge)),
-                                                    CircularPercentIndicator(
-                                                      radius: 20,
-                                                      animation: true,
-                                                      lineWidth: 2.0,
-                                                      linearGradient:
-                                                          const LinearGradient(
-                                                              colors: [
-                                                            Color(0xFFFFA900),
-                                                            Color(0xFFFF7600),
-                                                            Color(0xFFCD113B),
-                                                          ],
-                                                              begin: Alignment
-                                                                  .topRight,
-                                                              end: Alignment
-                                                                  .topLeft),
-                                                      percent: double.parse(
-                                                              controller
-                                                                      .traps[
-                                                                          index]
-                                                                      .valveQut ??
-                                                                  "0.0") /
-                                                          100,
-                                                      center: Text(
-                                                          "${double.parse(controller.traps[index].valveQut ?? "0.0") / 100}%",
-                                                          style: robotoMedium
-                                                              .copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeExtraSmall,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: Dimensions.height * 0.01,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                controller.openMapDirection(
-                                                    controller
-                                                            .traps[index].lat ??
-                                                        0.0,
-                                                    controller.traps[index]
-                                                            .long ??
-                                                        0.0);
-                                              },
-                                              child: Material(
-                                                elevation: 2,
-                                                shadowColor: Theme.of(context)
-                                                    .primaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        Dimensions
-                                                            .RADIUS_SMALL),
-                                                child: Container(
-                                                  width: Dimensions.width * 0.3,
-                                                  height:
-                                                      Dimensions.height * 0.04,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius
-                                                          .circular(Dimensions
-                                                              .RADIUS_SMALL),
-                                                      border: Border.all(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .primaryColor)),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        "location".tr,
-                                                        style: robotoMedium.copyWith(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: Dimensions
-                                                                .fontSizeSmall),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Flexible(
-                                                          child: Image.asset(
-                                                              Images.map)),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: Dimensions.height * 0.01,
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                      transition: Transition.leftToRight);
+                                },
+                                openMap: () {
+                                  controller.openMapDirection(
+                                      controller.traps[index].lat ?? 0.0,
+                                      controller.traps[index].long ?? 0.0);
+                                },
+                                valueQut: controller.traps[index].valveQut,
+                                fan: controller.traps[index].fan,
+                                working: controller.traps[index].isCounterOn!,
+                                name: controller.traps[index].name!,
                               ),
                             ))
                   ],

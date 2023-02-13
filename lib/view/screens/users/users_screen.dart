@@ -9,6 +9,8 @@ import 'package:bio_trap/view/screens/users/controller/users_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../util/app_constants.dart';
+
 class UsersScreen extends StatelessWidget {
   const UsersScreen({Key? key}) : super(key: key);
 
@@ -50,7 +52,7 @@ class UsersScreen extends StatelessWidget {
                                     controller.changeEmailUser(name);
                                   },
                                   autoFocus: true,
-                                  label: "Email",
+                                  label: AppConstants.email,
                                 )),
                             SizedBox(height: Dimensions.height * 0.02),
                             Obx(() => FixedTextField(
@@ -61,7 +63,7 @@ class UsersScreen extends StatelessWidget {
                                     controller.changeNameUser(name);
                                   },
                                   autoFocus: true,
-                                  label: "UserName",
+                                  label: AppConstants.userName,
                                 )),
                             SizedBox(height: Dimensions.height * 0.02),
                             Obx(() => FixedTextField(
@@ -72,11 +74,11 @@ class UsersScreen extends StatelessWidget {
                                     controller.changePasswordUser(name);
                                   },
                                   autoFocus: true,
-                                  label: "Password",
+                                  label: AppConstants.password,
                                 )),
                             SizedBox(height: Dimensions.height * 0.02),
                             CustomMultiSelectTrap(
-                              label: "Traps",
+                              label: AppConstants.traps,
                               list: controller.traps,
                               onConfirm: (values) {
                                 for (var element in values) {
@@ -122,7 +124,7 @@ class UsersScreen extends StatelessWidget {
                           color: Theme.of(context).primaryColor,
                         ),
                         Text(
-                          "No Found Users",
+                          AppConstants.noFoundUsers,
                           style: robotoMedium.copyWith(
                               color: Theme.of(context).primaryColor),
                         )
@@ -161,7 +163,7 @@ class UsersScreen extends StatelessWidget {
                                                     controller.changeName(name);
                                                   },
                                                   autoFocus: true,
-                                                  label: "Name",
+                                                  label: AppConstants.name,
                                                 )),
                                             const SizedBox(height: 10),
                                             Obx(() => FixedTextField(
@@ -176,11 +178,11 @@ class UsersScreen extends StatelessWidget {
                                                         .changeUserEmail(email);
                                                   },
                                                   autoFocus: true,
-                                                  label: "Email",
+                                                  label:  AppConstants.email,
                                                 )),
                                             const SizedBox(height: 10),
                                             CustomMultiSelectTrap(
-                                              label: "Traps",
+                                              label:  AppConstants.traps,
                                               list: controller.traps,
                                               onConfirm: (values) {
                                                 for (var element in values) {
@@ -270,7 +272,7 @@ class UsersScreen extends StatelessWidget {
                                                         .changeOldPassword(
                                                             oldPassword);
                                                   },
-                                                  label: "Old Password",
+                                                  label:  AppConstants.oldPassword,
                                                 )),
                                             const SizedBox(height: 10),
                                             Obx(() => FixedTextField(
@@ -283,7 +285,7 @@ class UsersScreen extends StatelessWidget {
                                                         .changeNewPassword(
                                                             newPassword);
                                                   },
-                                                  label: "New Password",
+                                                  label: AppConstants.newPassword,
                                                 )),
                                             const SizedBox(height: 10),
                                             Obx(() => FixedTextField(
@@ -296,7 +298,7 @@ class UsersScreen extends StatelessWidget {
                                                         .changeConfirmPassword(
                                                             confirmPassword);
                                                   },
-                                                  label: "Confirm Password",
+                                                  label: AppConstants.confirmPassword,
                                                 )),
                                           ],
                                         ), onConfirm: () {

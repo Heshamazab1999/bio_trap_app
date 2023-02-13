@@ -57,16 +57,6 @@ class SearchScreen extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                         fontSize: Dimensions.fontSizeLarge)),
                 SizedBox(height: Dimensions.height * 0.02),
-                // FixedTextField(
-                //   inputType: TextInputType.number,
-                //   label: "Enter Id Trap",
-                //   prefixIcon:
-                //       Icon(Icons.search, color: Theme.of(context).primaryColor),
-                //   function: (v) {
-                //     controller.id.value = int.parse(v.isEmpty ? "0" : v);
-                //   },
-                // ),
-                // SizedBox(height: Dimensions.height * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -158,102 +148,7 @@ class SearchScreen extends StatelessWidget {
                                   );
                                 },
                               )
-                    // Column(
-                    //             children: [
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //               CustomChart(
-                    //                 label: "ReadingTempIn",
-                    //                 data: controller.readingsList,
-                    //                 yValueMapper: (Readings sales, _) =>
-                    //                     double.tryParse(sales.readingTempIn!),
-                    //               ),
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //               Divider(
-                    //                 color: Theme.of(context).primaryColor,
-                    //                 endIndent: 40,
-                    //                 indent: 40,
-                    //               ),
-                    //               CustomChart(
-                    //                 label: "ReadingTempOut",
-                    //                 data: controller.readingsList,
-                    //                 yValueMapper: (Readings sales, _) =>
-                    //                     double.tryParse(sales.readingTempOut!),
-                    //               ),
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //               Divider(
-                    //                 color: Theme.of(context).primaryColor,
-                    //                 endIndent: 40,
-                    //                 indent: 40,
-                    //               ),
-                    //               CustomChart(
-                    //                 label: "Reading Mosuqitoes",
-                    //                 data: controller.readingsList,
-                    //                 yValueMapper: (Readings sales, _) =>
-                    //                     double.tryParse(sales.readingMosuqitoes!),
-                    //               ),
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //               Divider(
-                    //                 color: Theme.of(context).primaryColor,
-                    //                 endIndent: 40,
-                    //                 indent: 40,
-                    //               ),
-                    //               CustomChart(
-                    //                 label: "ReadingWindSpeed",
-                    //                 data: controller.readingsList,
-                    //                 yValueMapper: (Readings sales, _) =>
-                    //                     double.tryParse(sales.readingWindSpeed!),
-                    //               ),
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //               Divider(
-                    //                 color: Theme.of(context).primaryColor,
-                    //                 endIndent: 40,
-                    //                 indent: 40,
-                    //               ),
-                    //               CustomChart(
-                    //                 label: "ReadingFly",
-                    //                 data: controller.readingsList,
-                    //                 yValueMapper: (Readings sales, _) =>
-                    //                     double.tryParse(sales.readingFly!),
-                    //               ),
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //               Divider(
-                    //                 color: Theme.of(context).primaryColor,
-                    //                 endIndent: 40,
-                    //                 indent: 40,
-                    //               ),
-                    //               CustomChart(
-                    //                 label: "Reading Large",
-                    //                 data: controller.readingsList,
-                    //                 yValueMapper: (Readings sales, _) =>
-                    //                     double.tryParse(sales.readingLarg!),
-                    //               ),
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //               Divider(
-                    //                 color: Theme.of(context).primaryColor,
-                    //                 endIndent: 40,
-                    //                 indent: 40,
-                    //               ),
-                    //               CustomChart(
-                    //                 label: "Reading Small",
-                    //                 data: controller.readingsList,
-                    //                 yValueMapper: (Readings sales, _) =>
-                    //                     double.tryParse(sales.readingsmall!),
-                    //               ),
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //               Divider(
-                    //                 color: Theme.of(context).primaryColor,
-                    //                 endIndent: 40,
-                    //                 indent: 40,
-                    //               ),
-                    //               CustomChart(
-                    //                 label: "Reading Humidty",
-                    //                 data: controller.readingsList,
-                    //                 yValueMapper: (Readings sales, _) =>
-                    //                     double.tryParse(sales.readingHumidty!),
-                    //               ),
-                    //               SizedBox(height: Dimensions.height * 0.02),
-                    //             ],
-                    //           )
+
                     )
               ],
             ),

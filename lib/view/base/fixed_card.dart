@@ -93,7 +93,7 @@ class CustomCard extends StatelessWidget {
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           CacheHelper.getData(key: AppConstants.role) ==
                                   "SuperAdmin"
                               ? GestureDetector(
@@ -230,13 +230,19 @@ class CustomCard extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Switch(
-                            value: switchValue!,
-                            onChanged: switchFunction,
-                            inactiveThumbColor:
-                                Theme.of(context).colorScheme.error,
-                            activeColor: Theme.of(context).primaryColor,
-                          ),
+                          Image.asset(
+                              switchValue!
+                                  ? Images.checkIcon
+                                  : Images.crossIcon,
+                              height: 25),
+                          // Switch(
+                          //   value: switchValue!,
+                          //   onChanged: switchFunction,
+                          //   inactiveThumbColor:
+                          //       Theme.of(context).colorScheme.error,
+                          //   activeColor: Theme.of(context).primaryColor,
+                          // ),
+                          SizedBox(width: 5),
                           Text(status!,
                               style: robotoMedium.copyWith(
                                   color: color,

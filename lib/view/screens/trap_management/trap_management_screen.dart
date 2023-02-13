@@ -37,7 +37,7 @@ class TrapManagementScreen extends StatelessWidget {
               actions: [
                 CacheHelper.getData(key: AppConstants.role) == "SuperAdmin"
                     ? GestureDetector(
-                        onTap: () => Get.toNamed(AppRoute.AddTrapScreen),
+                        onTap: () => Get.toNamed(AppRoute.addTrapScreen),
                         child: Image.asset(Images.moreIcon,
                             width: 25, color: Theme.of(context).cardColor),
                       )
@@ -64,7 +64,7 @@ class TrapManagementScreen extends StatelessWidget {
                       await controller.getTrap(trapId: traps![index].id);
                       Get.to(() => UpdateTrapScreen(
                             trap: controller.trap,
-                          ));
+                          ),transition: Transition.leftToRight);
                     },
                     co2Value:0.0,
                     fanValue: double.tryParse(traps![index].fan!)! / 100,
