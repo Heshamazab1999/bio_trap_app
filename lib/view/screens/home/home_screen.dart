@@ -13,6 +13,7 @@ import 'package:bio_trap/view/screens/trap_details/trap_details_screen.dart';
 import 'package:bio_trap/view/screens/trap_management/trap_management_screen.dart';
 import 'package:bio_trap/view/screens/users/users_screen.dart';
 import 'package:bio_trap/view/screens/your_traps/your_traps_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -172,6 +173,16 @@ class HomeScreen extends StatelessWidget {
                           border: Border.all(
                               color: Theme.of(context).primaryColor)),
                       child: GoogleMap(
+                        gestureRecognizers: Set()
+                          ..add(Factory<PanGestureRecognizer>(
+                                  () => PanGestureRecognizer()))
+                          ..add(Factory<ScaleGestureRecognizer>(
+                                  () => ScaleGestureRecognizer()))
+                          ..add(Factory<TapGestureRecognizer>(
+                                  () => TapGestureRecognizer()))
+                          ..add(Factory<VerticalDragGestureRecognizer>(
+                                  () =>
+                                  VerticalDragGestureRecognizer())),
                         initialCameraPosition: CameraPosition(
                             target: LatLng(
                                 controller.currentPosition.value.latitude,
@@ -180,9 +191,11 @@ class HomeScreen extends StatelessWidget {
                         markers: controller.markers,
                         onMapCreated: (created) {},
                         zoomControlsEnabled: true,
+                        myLocationEnabled: true,
+                        myLocationButtonEnabled: true,
                         zoomGesturesEnabled: true,
-                        scrollGesturesEnabled: true,
-                        compassEnabled: true,
+                        mapToolbarEnabled: true,
+
                       ),
                     ),
                     Divider(
