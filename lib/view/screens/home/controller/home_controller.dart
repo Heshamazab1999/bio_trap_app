@@ -8,6 +8,7 @@ import 'package:bio_trap/model/body/trap_model.dart';
 import 'package:bio_trap/routes/app_route.dart';
 import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/images.dart';
+import 'package:bio_trap/view/screens/trap_details/trap_details_screen.dart';
 import 'package:bio_trap/view/screens/trap_management/services/trap_management_services.dart';
 import 'package:bio_trap/view/screens/users/services/user_services.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class HomeController extends BaseController {
   final notificationList = <NotificationModel>[].obs;
   final traps = <TrapModel>[].obs;
   final markers = <Marker>{}.obs;
+  final isOpen = false.obs;
   final currentPosition = Position(
           longitude: 0.0,
           latitude: 0.0,
@@ -45,8 +47,9 @@ class HomeController extends BaseController {
     setState(ViewState.busy);
     await getCurrentPosition();
     traps.value = (await services.getAllTraps())!;
-    notificationList.value = (await services.getNotifications())!;
+    // notificationList.value = (await services.getNotifications())!;
     counter.value = notificationList.length;
+    isOpen.value = CacheHelper.getData(key: AppConstants.seen) ?? false;
     CacheHelper.saveData(
         key: AppConstants.length, value: notificationList.length);
     images.addAll(
@@ -129,8 +132,14 @@ class HomeController extends BaseController {
       final Uint8List markerIcon = await getBytesFromAsset(Images.pinIcon, 150);
       BitmapDescriptor markerBitmap = BitmapDescriptor.fromBytes(markerIcon);
       markers.add(Marker(
-          onTap: () {
-            openMapDirection(element.lat!, element.long!);
+          onTap: () async {
+            await getTrap(trapId: element.id);
+            Get.to(
+                () => TrapDetailsScreen(
+                      trap: trap,
+                      readings: readings,
+                    ),
+                transition: Transition.leftToRight);
           },
           icon: markerBitmap,
           markerId: MarkerId("${element.id}"),

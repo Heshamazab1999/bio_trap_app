@@ -16,7 +16,6 @@ class DioUtilNew {
     return _instance;
   }
 
-
   static Dio? get dio => _dio;
 
   static void setDioAgain() {
@@ -34,12 +33,10 @@ class DioUtilNew {
     options.baseUrl = AppConstants.baseUrl;
     options.headers = {
       'Authorization': "Bearer ${CacheHelper.getData(key: AppConstants.token)}"
-      // 'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLWlzdGNocmF0Lm1hemFkYWsubmV0XC9hcGlcL3YxXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0NjkwNTE0NiwiZXhwIjoxNjUwNTA1MTQ2LCJuYmYiOjE2NDY5MDUxNDYsImp0aSI6InpHUm5mNzVPYUdIaG9rd2wiLCJzdWIiOjMsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.JNbMo91I1l9NeKQliAeec51yZqeNtCl6KeKkJ25WHqo"
     };
     options.queryParameters = {};
 
-    return
-      options;
+    return options;
   }
 
   //this just returns the language key
@@ -50,7 +47,7 @@ class DioUtilNew {
         errorDescription = "request_cancelled";
         break;
       case DioErrorType.connectTimeout:
-      //Connection timeout with API server
+        //Connection timeout with API server
         errorDescription = "timeout";
         break;
       case DioErrorType.other:

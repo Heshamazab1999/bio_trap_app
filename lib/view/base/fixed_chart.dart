@@ -1,10 +1,13 @@
 import 'package:bio_trap/model/body/reading_model.dart';
+import 'package:bio_trap/util/dimensions.dart';
+import 'package:bio_trap/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class FixedChart extends StatelessWidget {
-  const FixedChart({Key? key, this.dataSource}) : super(key: key);
+  const FixedChart({Key? key, this.dataSource, this.date}) : super(key: key);
   final List<Readings>? dataSource;
+  final String? date;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +19,18 @@ class FixedChart extends StatelessWidget {
         double totalMosuqitoes = 0;
         double totalFly = 0;
         for (int i = 0; i < dataSource!.length; i++) {
-          totalSmall += double.parse(dataSource![i].readingsmall??"0.0",);
-          totalLarge += double.parse(dataSource![i].readingLarg??"0.0",);
-          totalFly += double.parse(dataSource![i].readingFly??"0.0",);
-          totalMosuqitoes += double.parse(dataSource![i].readingMosuqitoes??"0.0",);
+          totalSmall += double.parse(
+            dataSource![i].readingsmall ?? "0.0",
+          );
+          totalLarge += double.parse(
+            dataSource![i].readingLarg ?? "0.0",
+          );
+          totalFly += double.parse(
+            dataSource![i].readingFly ?? "0.0",
+          );
+          totalMosuqitoes += double.parse(
+            dataSource![i].readingMosuqitoes ?? "0.0",
+          );
         }
         switch (args.seriesIndex) {
           case 0:
@@ -44,8 +55,13 @@ class FixedChart extends StatelessWidget {
             break;
         }
       },
-      legend: Legend(isVisible: true, position: LegendPosition.top,
-      overflowMode: LegendItemOverflowMode.wrap),
+      title: ChartTitle(text: date ?? "", textStyle: robotoMedium.copyWith(
+        fontSize: Dimensions.fontSizeLarge
+      )),
+      legend: Legend(
+          isVisible: true,
+          position: LegendPosition.top,
+          overflowMode: LegendItemOverflowMode.wrap),
       primaryXAxis: NumericAxis(
           interval: 2,
           minimum: 0.0,

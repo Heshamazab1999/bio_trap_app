@@ -62,14 +62,16 @@ class CustomButton extends StatelessWidget {
                                   : Theme.of(context).cardColor),
                         )
                       : const SizedBox(),
-                  Text(buttonText ?? '',
-                      textAlign: TextAlign.center,
-                      style: robotoBold.copyWith(
-                        color: transparent!
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).cardColor,
-                        fontSize: fontSize ?? Dimensions.fontSizeLarge,
-                      )),
+                  Flexible(
+                    child: Text(buttonText ?? '',
+                        textAlign: TextAlign.center,
+                        style: robotoBold.copyWith(
+                          color: transparent!
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).cardColor,
+                          fontSize: fontSize ?? Dimensions.fontSizeLarge,
+                        )),
+                  ),
                 ]),
               ),
             )));

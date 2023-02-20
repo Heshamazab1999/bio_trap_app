@@ -13,10 +13,10 @@ import 'package:bio_trap/view/screens/trap_details/trap_details_screen.dart';
 import 'package:bio_trap/view/screens/trap_management/trap_management_screen.dart';
 import 'package:bio_trap/view/screens/users/users_screen.dart';
 import 'package:bio_trap/view/screens/your_traps/your_traps_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:badges/badges.dart' as badges;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -96,56 +96,42 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               actions: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: Dimensions.PADDING_SIZE_SMALL,
-                        vertical: Dimensions.PADDING_SIZE_SMALL),
-                    child: Stack(
-                      alignment: Alignment.topRight,
-                      children: [
-                        const Icon(Icons.notifications,
-                            size: Dimensions.PADDING_SIZE_OVER_Extra),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() => NotificationScreen(
-                                  notifications: controller.notificationList,
-                                ));
-                          },
-                          child: Container(
-                            height: Dimensions.RADIUS_EXTRA_LARGE,
-                            width: Dimensions.RADIUS_EXTRA_LARGE,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).secondaryHeaderColor,
-                                shape: BoxShape.circle),
-                            child: const Center(child: Text("20")),
-                          ),
-                        )
-                      ],
-                    )
-                    // Obx(
-                    //   () => badges.Badge(
-                    //
-                    //     onTap: () {
-                    //       Get.to(() => NotificationScreen(
-                    //             notifications: controller.notificationList,
-                    //           ));
-                    //       controller.counter.value = 0;
-                    //     },
-                    //     badgeStyle: badges.BadgeStyle(
-                    //         badgeColor: Theme.of(context).secondaryHeaderColor),
-                    //     showBadge:
-                    //         controller.counter.value.isEqual(0) ? false : true,
-                    //     badgeContent: Text(
-                    //       "${controller.counter}",
-                    //       style: robotoMedium.copyWith(
-                    //           color: Theme.of(context).cardColor,
-                    //           fontSize: Dimensions.fontSizeDefault),
-                    //     ),
-                    //     child: const Icon(Icons.notifications,
-                    //         size: Dimensions.PADDING_SIZE_OVER_LARGE),
-                    //   ),
-                    // )
-                    ),
+                // Padding(
+                //     padding: const EdgeInsets.symmetric(
+                //         horizontal: Dimensions.PADDING_SIZE_SMALL,
+                //         vertical: Dimensions.PADDING_SIZE_SMALL),
+                //     child: Stack(
+                //       alignment: Alignment.topRight,
+                //       children: [
+                //         GestureDetector(
+                //          onTap: (){
+                //            Get.to(() => NotificationScreen(
+                //              notifications: controller.notificationList,
+                //            ));
+                //            CacheHelper.saveData(
+                //                key: AppConstants.seen, value: true);
+                //          } ,
+                //           child: const Icon(Icons.notifications,
+                //               size: Dimensions.PADDING_SIZE_OVER_Extra),
+                //         ),
+                //         Obx(
+                //           () => controller.isOpen.value
+                //               ? const SizedBox()
+                //               : Container(
+                //                   height: Dimensions.RADIUS_EXTRA_LARGE,
+                //                   width: Dimensions.RADIUS_EXTRA_LARGE,
+                //                   decoration: BoxDecoration(
+                //                       color: Theme.of(context)
+                //                           .secondaryHeaderColor,
+                //                       shape: BoxShape.circle),
+                //                   child: Center(
+                //                       child: Text(controller
+                //                           .notificationList.length
+                //                           .toString())),
+                //                 ),
+                //         )
+                //       ],
+                //     )),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: GestureDetector(
@@ -179,8 +165,12 @@ class HomeScreen extends StatelessWidget {
             : SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
+                    Container(
                       height: Dimensions.height / 2.5,
+                      width: Dimensions.width -Dimensions.PADDING_SIZE_SMALL,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Theme.of(context).primaryColor)),
                       child: GoogleMap(
                         initialCameraPosition: CameraPosition(
                             target: LatLng(
@@ -189,6 +179,10 @@ class HomeScreen extends StatelessWidget {
                             zoom: 15),
                         markers: controller.markers,
                         onMapCreated: (created) {},
+                        zoomControlsEnabled: true,
+                        zoomGesturesEnabled: true,
+                        scrollGesturesEnabled: true,
+                        compassEnabled: true,
                       ),
                     ),
                     Divider(

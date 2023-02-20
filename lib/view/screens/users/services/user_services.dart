@@ -1,3 +1,4 @@
+import 'package:bio_trap/helper/cache_helper.dart';
 import 'package:bio_trap/helper/dio_integration.dart';
 import 'package:bio_trap/model/body/notification_model.dart';
 import 'package:bio_trap/model/body/trap_model.dart';

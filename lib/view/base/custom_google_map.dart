@@ -9,9 +9,8 @@ class CustomGoogleMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-      zoomControlsEnabled: true,
+
       zoomGesturesEnabled: true,
-      buildingsEnabled: true,
       initialCameraPosition: CameraPosition(target: latLng!, zoom: 5),
       markers: <Marker>{
         Marker(
