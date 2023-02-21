@@ -4,6 +4,7 @@ import 'package:bio_trap/routes/app_route.dart';
 import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/util/dimensions.dart';
 import 'package:bio_trap/util/images.dart';
+import 'package:bio_trap/util/utility.dart';
 import 'package:bio_trap/view/base/fixed_card.dart';
 import 'package:bio_trap/view/screens/trap_management/controller/trap_managment_controller.dart';
 import 'package:bio_trap/view/screens/update_trap/update_trap_screen.dart';
@@ -56,18 +57,25 @@ class TrapManagementScreen extends StatelessWidget {
             itemBuilder: (_, index) => Obx(() {
                   return CustomCard(
                     deleteFun: () {
-                      controller.deleteTrap(context, trapId: traps![index].id);
+                      Utility.displayLogoutAlert(context, () {
+                        controller.deleteTrap(context,
+                            trapId: traps![index].id);
+                      },
+                          btnText: "Ok",
+                          title: "are you sure you want to delete");
                     },
                     date: traps![index].readingDate ?? "00-00-00",
                     switchFunction: (v) {},
                     onNavigate: () async {
                       await controller.getTrap(trapId: traps![index].id);
-                      Get.to(() => UpdateTrapScreen(
-                            trap: controller.trap,
-                          ),transition: Transition.leftToRight);
+                      Get.to(
+                          () => UpdateTrapScreen(
+                                trap: controller.trap,
+                              ),
+                          transition: Transition.leftToRight);
                     },
-                    co2Value:0.0,
-                    fanValue: double.tryParse(traps![index].fan!)! / 100,
+                    co2Value: "0.0",
+                    fanValue: traps![index].fan ?? "0.0",
                     lunchMap: () {
                       controller.openMapDirection(
                           lat: traps![index].lat!,

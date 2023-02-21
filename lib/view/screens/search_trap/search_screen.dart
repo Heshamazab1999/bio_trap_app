@@ -142,6 +142,7 @@ class SearchScreen extends StatelessWidget {
                                               .reading!.readings![index].date!);
 
                                   return CustomChart(
+                                    tooltipBehavior: controller.tooltipBehavior,
                                     title: output.format(input),
                                     index: index,
                                     reading: controller.readingList,

@@ -177,6 +177,7 @@ class UsersController extends BaseController {
 
   deleteUser(BuildContext context, {String? userId}) async {
     await services.deleteUser(context, id: userId);
+    Get.back();
   }
 
   addUser(

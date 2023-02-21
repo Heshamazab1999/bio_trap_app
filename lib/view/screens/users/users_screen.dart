@@ -178,11 +178,11 @@ class UsersScreen extends StatelessWidget {
                                                         .changeUserEmail(email);
                                                   },
                                                   autoFocus: true,
-                                                  label:  AppConstants.email,
+                                                  label: AppConstants.email,
                                                 )),
                                             const SizedBox(height: 10),
                                             CustomMultiSelectTrap(
-                                              label:  AppConstants.traps,
+                                              label: AppConstants.traps,
                                               list: controller.traps,
                                               onConfirm: (values) {
                                                 for (var element in values) {
@@ -272,7 +272,8 @@ class UsersScreen extends StatelessWidget {
                                                         .changeOldPassword(
                                                             oldPassword);
                                                   },
-                                                  label:  AppConstants.oldPassword,
+                                                  label:
+                                                      AppConstants.oldPassword,
                                                 )),
                                             const SizedBox(height: 10),
                                             Obx(() => FixedTextField(
@@ -285,7 +286,8 @@ class UsersScreen extends StatelessWidget {
                                                         .changeNewPassword(
                                                             newPassword);
                                                   },
-                                                  label: AppConstants.newPassword,
+                                                  label:
+                                                      AppConstants.newPassword,
                                                 )),
                                             const SizedBox(height: 10),
                                             Obx(() => FixedTextField(
@@ -298,7 +300,8 @@ class UsersScreen extends StatelessWidget {
                                                         .changeConfirmPassword(
                                                             confirmPassword);
                                                   },
-                                                  label: AppConstants.confirmPassword,
+                                                  label: AppConstants
+                                                      .confirmPassword,
                                                 )),
                                           ],
                                         ), onConfirm: () {
@@ -315,8 +318,13 @@ class UsersScreen extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    controller.deleteUser(context,
-                                        userId: controller.users[index].id);
+                                    Utility.displayLogoutAlert(context, () {
+                                      controller.deleteUser(context,
+                                          userId: controller.users[index].id);
+                                    },
+                                        btnText: "Ok",
+                                        title:
+                                            "are you sure you want to delete this user");
                                   },
                                   child: Image.asset(
                                     Images.deleteIcon,

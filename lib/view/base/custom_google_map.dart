@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -9,8 +11,11 @@ class CustomGoogleMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
-
+      scrollGesturesEnabled: true,
       zoomGesturesEnabled: true,
+      myLocationButtonEnabled: false,
+      gestureRecognizers: Set()
+        ..add( Factory<PanGestureRecognizer>(() => PanGestureRecognizer())),
       initialCameraPosition: CameraPosition(target: latLng!, zoom: 5),
       markers: <Marker>{
         Marker(

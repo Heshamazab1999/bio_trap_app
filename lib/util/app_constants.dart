@@ -35,7 +35,7 @@ class AppConstants {
   static const String languageCode = 'language_code';
   static const String counterFan = "Counter Fan";
   static const String scheduleCounter = "View Schedule Counter";
-  static const String valveQut = "Valve Qut :";
+  static const String valveQut = "Valve Qut : ";
   static const String working = "Working";
   static const String oN = "ON";
   static const String off = "OFF";

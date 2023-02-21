@@ -68,6 +68,7 @@ class TrapManagementServices {
       print(response.data);
       print(response.statusCode);
       if (response.statusCode == 200) {
+        print(response.data);
         Readings readings = Readings.fromJson(response.data);
         return readings;
       }

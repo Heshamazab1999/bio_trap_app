@@ -52,11 +52,10 @@ class YourTrapScreen extends StatelessWidget {
                     shadowColor: Theme.of(context).primaryColor,
                     child: ListTile(
                       onTap: () async {
-                        await controller.getTrap(trapId: traps![index].id);
                         Get.to(
                             () => TrapDetailsScreen(
-                                  trap: controller.trap,
-                                  readings: controller.readings,
+                                  id: traps![index].id,
+                                  name: traps![index].name,
                                 ),
                             transition: Transition.leftToRight);
                       },

@@ -129,15 +129,15 @@ class HomeController extends BaseController {
   drawAllMarkers() async {
     markers.clear();
     for (var element in traps) {
-      final Uint8List markerIcon = await getBytesFromAsset(Images.pinIcon, 150);
+      final Uint8List markerIcon = await getBytesFromAsset(Images.pinIcon, 90);
       BitmapDescriptor markerBitmap = BitmapDescriptor.fromBytes(markerIcon);
       markers.add(Marker(
           onTap: () async {
             await getTrap(trapId: element.id);
             Get.to(
                 () => TrapDetailsScreen(
-                      trap: trap,
-                      readings: readings,
+                      // trap: trap,
+                      // readings: readings,
                     ),
                 transition: Transition.leftToRight);
           },

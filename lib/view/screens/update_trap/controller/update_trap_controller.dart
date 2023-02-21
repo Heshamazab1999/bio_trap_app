@@ -200,7 +200,7 @@ class UpdateTrapController extends BaseController {
             model: UpdateTrapModel(
               name: textEditingControllerName.text,
               serialNumber: textEditingControllerSerial.text,
-              iema: int.tryParse(textEditingControllerLema.text),
+              iema: 0 ,
               lat: textEditingControllerLat.text,
               long: textEditingControllerLon.text,
               isCounterOn: switchValue.isTrue,

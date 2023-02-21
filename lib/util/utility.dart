@@ -117,10 +117,15 @@ class Utility {
     await alert.show();
   }
 
-  static displayLogoutAlert(BuildContext context, Function()? onConfirm) async {
+  static displayLogoutAlert(
+    BuildContext context,
+    Function()? onConfirm, {
+    String? title = "are_you_sure_to_logout",
+    String? btnText = "logout",
+  }) async {
     final alert = Alert(
       context: context,
-      title: "are_you_sure_to_logout".tr,
+      title: title,
       type: AlertType.none,
       style: AlertStyle(
         // animationDuration: const Duration(milliseconds: 800),
@@ -150,7 +155,7 @@ class Utility {
           onPressed: onConfirm,
           color: Colors.red,
           child: Text(
-            "logout".tr,
+            btnText!,
             style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
         ),

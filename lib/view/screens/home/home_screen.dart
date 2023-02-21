@@ -163,60 +163,61 @@ class HomeScreen extends StatelessWidget {
                   width: Dimensions.width * 0.5,
                 ),
               )
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      height: Dimensions.height / 2.5,
-                      width: Dimensions.width -Dimensions.PADDING_SIZE_SMALL,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Theme.of(context).primaryColor)),
-                      child: GoogleMap(
-                        gestureRecognizers: Set()
-                          ..add(Factory<PanGestureRecognizer>(
-                                  () => PanGestureRecognizer()))
-                          ..add(Factory<ScaleGestureRecognizer>(
-                                  () => ScaleGestureRecognizer()))
-                          ..add(Factory<TapGestureRecognizer>(
-                                  () => TapGestureRecognizer()))
-                          ..add(Factory<VerticalDragGestureRecognizer>(
-                                  () =>
-                                  VerticalDragGestureRecognizer())),
-                        initialCameraPosition: CameraPosition(
-                            target: LatLng(
-                                controller.currentPosition.value.latitude,
-                                controller.currentPosition.value.longitude),
-                            zoom: 15),
-                        markers: controller.markers,
-                        onMapCreated: (created) {},
-                        zoomControlsEnabled: true,
-                        myLocationEnabled: true,
-                        myLocationButtonEnabled: true,
-                        zoomGesturesEnabled: true,
-                        mapToolbarEnabled: true,
-
-                      ),
+            : Column(
+                children: [
+                  Container(
+                    height: Dimensions.height / 2.5,
+                    width: Dimensions.width - Dimensions.PADDING_SIZE_SMALL,
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Theme.of(context).primaryColor)),
+                    child: GoogleMap(
+                      gestureRecognizers: Set()
+                        ..add(Factory<PanGestureRecognizer>(
+                            () => PanGestureRecognizer()))
+                        ..add(Factory<ScaleGestureRecognizer>(
+                            () => ScaleGestureRecognizer()))
+                        ..add(Factory<TapGestureRecognizer>(
+                            () => TapGestureRecognizer()))
+                        ..add(Factory<VerticalDragGestureRecognizer>(
+                            () => VerticalDragGestureRecognizer())),
+                      initialCameraPosition: CameraPosition(
+                          target: LatLng(
+                              controller.currentPosition.value.latitude,
+                              controller.currentPosition.value.longitude),
+                          zoom: 15),
+                      markers: controller.markers,
+                      onMapCreated: (created) {},
+                      zoomControlsEnabled: true,
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
+                      zoomGesturesEnabled: true,
+                      mapToolbarEnabled: true,
                     ),
-                    Divider(
-                      color: Theme.of(context).primaryColor,
-                      endIndent: 20,
-                      indent: 20,
-                    ),
-                    ListView.builder(
+                  ),
+                  Divider(
+                    color: Theme.of(context).primaryColor,
+                    endIndent: 20,
+                    indent: 20,
+                  ),
+                  Flexible(
+                    child: ListView.builder(
                         itemCount: controller.traps.length,
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (_, index) => Padding(
-                              padding: const EdgeInsets.all(2),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.PADDING_SIZE_SMALL),
                               child: CustomCardTrap(
                                 onTap: () async {
-                                  await controller.getTrap(
-                                      trapId: controller.traps[index].id);
+                                  // await controller.getTrap(
+                                  //     trapId: controller.traps[index].id);
                                   Get.to(
                                       () => TrapDetailsScreen(
-                                            trap: controller.trap,
-                                            readings: controller.readings,
+                                            id: controller.traps[index].id,
+                                            name: controller.traps[index].name,
+                                            // trap: controller.trap,
+                                            // readings: controller.readings,
                                           ),
                                       transition: Transition.leftToRight);
                                 },
@@ -230,9 +231,9 @@ class HomeScreen extends StatelessWidget {
                                 working: controller.traps[index].isCounterOn!,
                                 name: controller.traps[index].name!,
                               ),
-                            ))
-                  ],
-                ),
+                            )),
+                  )
+                ],
               )));
   }
 }

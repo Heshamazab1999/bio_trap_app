@@ -101,15 +101,15 @@ class UpdateTrapScreen extends StatelessWidget {
                         SizedBox(
                           height: Dimensions.height * 0.03,
                         ),
-                        Obx(() => controller.role.value == AppConstants.superAdmin
-                            ? FixedTextField(
-                                controller:
-                                    controller.textEditingControllerLema,
-                                inputType: TextInputType.number,
-                                function: (v) {},
-                                label: "Iema",
-                              )
-                            : SizedBox()),
+                        // Obx(() => controller.role.value == AppConstants.superAdmin
+                        //     ? FixedTextField(
+                        //         controller:
+                        //             controller.textEditingControllerLema,
+                        //         inputType: TextInputType.number,
+                        //         function: (v) {},
+                        //         label: "Iema",
+                        //       )
+                        //     : SizedBox()),
                         SizedBox(
                           height: Dimensions.height * 0.03,
                         ),
@@ -426,7 +426,6 @@ class UpdateTrapScreen extends StatelessWidget {
                                 radius: 8,
                                 width: Dimensions.width * 0.5,
                                 onPressed: () {
-                                  print(trap!.id);
                                   controller.updateTrap(context,
                                       trapId: trap!.id);
                                 },

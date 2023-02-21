@@ -5,6 +5,7 @@ import 'package:bio_trap/util/app_constants.dart';
 import 'package:bio_trap/view/screens/trap_management/services/trap_management_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SearchController extends BaseController {
   final services = TrapManagementServices();
@@ -15,11 +16,14 @@ class SearchController extends BaseController {
   final endDate = "".obs;
   final load = false.obs;
   final readingList = <ReadingsModel>[].obs;
+  late TooltipBehavior tooltipBehavior;
 
   @override
   onInit() {
     super.onInit();
     readingList.clear();
+    tooltipBehavior = TooltipBehavior(enable: true,
+    );
   }
 
   Future<DateTime?> showCalender({required BuildContext context}) async =>

@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CustomChart extends StatelessWidget {
-  const CustomChart({Key? key, this.reading, this.index = 0, this.title})
+  CustomChart(
+      {Key? key,
+      this.reading,
+      this.index = 0,
+      this.title,
+      this.tooltipBehavior})
       : super(key: key);
   final List<ReadingsModel>? reading;
   final int index;
   final String? title;
+  late TooltipBehavior? tooltipBehavior;
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +24,18 @@ class CustomChart extends StatelessWidget {
       child: SizedBox(
         height: Dimensions.height * 0.5,
         child: SfCartesianChart(
+          tooltipBehavior: tooltipBehavior,
           title: ChartTitle(
             text: title!,
           ),
           onLegendItemRender: (LegendRenderArgs args) {
-            print(args.seriesIndex);
             double totalSmall = 0;
             double totalLarge = 0;
             double totalMosuqitoes = 0;
             double totalFly = 0;
-            for (int i = 0;
-                i < reading![index].readingInDay!.length;
-                i++) {
+            for (int i = 0; i < reading![index].readingInDay!.length; i++) {
               totalSmall += double.parse(
-                reading![index].readingInDay![i].readingsmall ??
-                    "0.0",
+                reading![index].readingInDay![i].readingsmall ?? "0.0",
               );
               totalLarge += double.parse(
                 reading![index].readingInDay![i].readingLarg ?? "0.0",
@@ -41,8 +44,7 @@ class CustomChart extends StatelessWidget {
                 reading![index].readingInDay![i].readingFly ?? "0.0",
               );
               totalMosuqitoes += double.parse(
-                reading![index].readingInDay![i].readingMosuqitoes ??
-                    "0.0",
+                reading![index].readingInDay![i].readingMosuqitoes ?? "0.0",
               );
             }
             switch (args.seriesIndex) {
@@ -83,6 +85,7 @@ class CustomChart extends StatelessWidget {
           ),
           series: <ChartSeries<ReadingInDay, double>>[
             LineSeries<ReadingInDay, double>(
+                enableTooltip: true,
                 markerSettings: const MarkerSettings(isVisible: true),
                 color: Colors.blue,
                 dataSource: reading![index].readingInDay!,
@@ -91,6 +94,7 @@ class CustomChart extends StatelessWidget {
                 yValueMapper: (ReadingInDay data, _) =>
                     double.parse(data.readingsmall ?? "0.0")),
             LineSeries<ReadingInDay, double>(
+                enableTooltip: true,
                 markerSettings: const MarkerSettings(isVisible: true),
                 color: Colors.blue[300],
                 dataSource: reading![index].readingInDay!,
@@ -99,6 +103,7 @@ class CustomChart extends StatelessWidget {
                 yValueMapper: (ReadingInDay data, _) =>
                     double.parse(data.readingLarg ?? "0.0")),
             LineSeries<ReadingInDay, double>(
+                enableTooltip: true,
                 markerSettings: const MarkerSettings(isVisible: true),
                 color: Colors.green,
                 dataSource: reading![index].readingInDay!,
@@ -107,6 +112,7 @@ class CustomChart extends StatelessWidget {
                 yValueMapper: (ReadingInDay data, _) =>
                     double.parse(data.readingMosuqitoes ?? "0.0")),
             LineSeries<ReadingInDay, double>(
+                enableTooltip: true,
                 markerSettings: const MarkerSettings(isVisible: true),
                 color: Colors.amber,
                 dataSource: reading![index].readingInDay!,
