@@ -25,7 +25,10 @@ class CustomMultiSelectTrap extends StatelessWidget {
                 fontSize: Dimensions.fontSizeDefault,
                 color: Theme.of(context).primaryColor),
           ),
-          buttonIcon: Icon(icon!, color: Theme.of(context).primaryColor),
+          buttonIcon: Icon(
+            icon!,
+            color: Theme.of(context).primaryColor,
+          ),
           chipDisplay: MultiSelectChipDisplay(
             scroll: true,
             scrollBar: HorizontalScrollBar(),

@@ -133,11 +133,11 @@ class HomeController extends BaseController {
       BitmapDescriptor markerBitmap = BitmapDescriptor.fromBytes(markerIcon);
       markers.add(Marker(
           onTap: () async {
-            await getTrap(trapId: element.id);
             Get.to(
                 () => TrapDetailsScreen(
-                      // trap: trap,
-                      // readings: readings,
+                      id: element.id,
+                      name: element.name,
+
                     ),
                 transition: Transition.leftToRight);
           },

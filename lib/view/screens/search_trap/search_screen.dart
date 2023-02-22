@@ -8,6 +8,7 @@ import 'package:bio_trap/view/screens/search_trap/controller/search_controller.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key, this.trap}) : super(key: key);
@@ -142,7 +143,7 @@ class SearchScreen extends StatelessWidget {
                                               .reading!.readings![index].date!);
 
                                   return CustomChart(
-                                    tooltipBehavior: controller.tooltipBehavior,
+
                                     title: output.format(input),
                                     index: index,
                                     reading: controller.readingList,

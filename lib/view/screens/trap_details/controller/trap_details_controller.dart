@@ -16,26 +16,12 @@ class TrapDetailsController extends BaseController {
   final date = "".obs;
   List<Readings> employees = <Readings>[];
   late EmployeeDataSource employeeDataSource;
-  late TooltipBehavior tooltipBehavior;
 
   @override
   onInit() {
     super.onInit();
     employees = getEmployeeData();
     employeeDataSource = EmployeeDataSource(employeeData:employees);
-    tooltipBehavior = TooltipBehavior(
-        enable: true,
-        // Templating the tooltip
-        builder: (dynamic data, dynamic point, dynamic series,
-            int pointIndex, int seriesIndex) {
-          return Container(
-            color: Colors.white,
-              child: Text(
-                  'PointIndex : ${pointIndex.toString()}'
-              )
-          );
-        }
-    );
   }
 
   List<Readings> getEmployeeData() {

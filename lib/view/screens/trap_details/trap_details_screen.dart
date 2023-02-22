@@ -303,38 +303,35 @@ class TrapDetailsScreen extends StatelessWidget {
                         endIndent: Dimensions.PADDING_SIZE_OVER_LARGE,
                         indent: Dimensions.PADDING_SIZE_OVER_LARGE,
                       ),
-                      FixedChart(
-                          tooltipBehavior: controller.tooltipBehavior,
-                          date: controller.date.value,
-                          dataSource: [
-                            Readings(
-                              readingWindSpeed: AppConstants.fixedDouble,
-                              readingDate: AppConstants.fixedDate,
-                              readingHumidty: AppConstants.fixedDouble,
-                              readingTempOut: AppConstants.fixedDouble,
-                              readingTempIn: AppConstants.fixedDouble,
-                              readingLarg: controller.readings == null
-                                  ? AppConstants.fixedDouble
-                                  : controller.readings!.readingLarg ??
-                                      AppConstants.fixedDouble,
-                              readingFly: controller.readings == null
-                                  ? AppConstants.fixedDouble
-                                  : controller.readings!.readingFly ??
-                                      AppConstants.fixedDouble,
-                              readingTime: controller.readings == null
-                                  ? AppConstants.fixedDouble
-                                  : controller.readings!.readingTime ??
-                                      AppConstants.fixedDate,
-                              readingsmall: controller.readings == null
-                                  ? AppConstants.fixedDouble
-                                  : controller.readings!.readingsmall ??
-                                      AppConstants.fixedDouble,
-                              readingMosuqitoes: controller.readings == null
-                                  ? AppConstants.fixedDouble
-                                  : controller.readings!.readingMosuqitoes ??
-                                      AppConstants.fixedDouble,
-                            )
-                          ]),
+                      FixedChart(date: controller.date.value, dataSource: [
+                        Readings(
+                          readingWindSpeed: AppConstants.fixedDouble,
+                          readingDate: AppConstants.fixedDate,
+                          readingHumidty: AppConstants.fixedDouble,
+                          readingTempOut: AppConstants.fixedDouble,
+                          readingTempIn: AppConstants.fixedDouble,
+                          readingLarg: controller.readings == null
+                              ? AppConstants.fixedDouble
+                              : controller.readings!.readingLarg ??
+                                  AppConstants.fixedDouble,
+                          readingFly: controller.readings == null
+                              ? AppConstants.fixedDouble
+                              : controller.readings!.readingFly ??
+                                  AppConstants.fixedDouble,
+                          readingTime: controller.readings == null
+                              ? AppConstants.fixedDouble
+                              : controller.readings!.readingTime ??
+                                  AppConstants.fixedDate,
+                          readingsmall: controller.readings == null
+                              ? AppConstants.fixedDouble
+                              : controller.readings!.readingsmall ??
+                                  AppConstants.fixedDouble,
+                          readingMosuqitoes: controller.readings == null
+                              ? AppConstants.fixedDouble
+                              : controller.readings!.readingMosuqitoes ??
+                                  AppConstants.fixedDouble,
+                        )
+                      ]),
                       Divider(
                         color: Theme.of(context).primaryColor,
                         endIndent: Dimensions.PADDING_SIZE_OVER_LARGE,

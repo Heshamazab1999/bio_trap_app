@@ -5,14 +5,32 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class FixedChart extends StatelessWidget {
-  const FixedChart({Key? key, this.dataSource, this.date,this.tooltipBehavior}) : super(key: key);
+  const FixedChart({Key? key, this.dataSource, this.date,}) : super(key: key);
   final List<Readings>? dataSource;
   final String? date;
- final TooltipBehavior? tooltipBehavior;
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-      tooltipBehavior:tooltipBehavior ,
+      onTooltipRender: (args) {
+        switch (args.seriesIndex) {
+          case 0:
+            args.header = "Small";
+
+            break;
+          case 1:
+            args.header = "Large";
+            break;
+          case 2:
+            args.header = "Mosuqitoes";
+            break;
+          case 3:
+            args.header = "Fly";
+            break;
+        }
+      },
+      tooltipBehavior: TooltipBehavior(
+          enable: true,
+          color: Colors.lightBlue),
       onLegendItemRender: (LegendRenderArgs args) {
         print(args.seriesIndex);
         double totalSmall = 0;

@@ -4,17 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CustomChart extends StatelessWidget {
-  CustomChart(
-      {Key? key,
-      this.reading,
-      this.index = 0,
-      this.title,
-      this.tooltipBehavior})
-      : super(key: key);
+  const CustomChart({
+    Key? key,
+    this.reading,
+    this.index = 0,
+    this.title,
+  }) : super(key: key);
   final List<ReadingsModel>? reading;
   final int index;
   final String? title;
-  late TooltipBehavior? tooltipBehavior;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +22,26 @@ class CustomChart extends StatelessWidget {
       child: SizedBox(
         height: Dimensions.height * 0.5,
         child: SfCartesianChart(
-          tooltipBehavior: tooltipBehavior,
+          onTooltipRender: (args) {
+            switch (args.seriesIndex) {
+              case 0:
+                args.header = "Small";
+
+                break;
+              case 1:
+                args.header = "Large";
+                break;
+              case 2:
+                args.header = "Mosuqitoes";
+                break;
+              case 3:
+                args.header = "Fly";
+                break;
+            }
+          },
+          tooltipBehavior: TooltipBehavior(
+              enable: true,
+              color: Colors.lightBlue),
           title: ChartTitle(
             text: title!,
           ),
